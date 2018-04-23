@@ -1,0 +1,3 @@
+-Tinh ke thua: super().
+-Tinh da hinh(Polymorphism): 1 sv hoc- va nghe giang, ve nha: quet nha- nau com, sieu thi: mua hang
+-Truu tuong(Abstract): 

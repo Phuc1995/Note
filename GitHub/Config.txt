@@ -1,0 +1,11 @@
+
+**Git Bash**
+$git config --global user.name"phuc735"
+$git config --global user.email "hoangphuc735@gmail.com"
+Cau hinh Editor: git config --global core.editor "'C:\Program Files (x86)\Notepad++\notepad++.exe' -multiInst -nosession"
+Kiem tra setting: git config --list
+Kiem tra user and email: git config user.name ; git config user.email
+Help: git clone --help
+Tao Repository tren local: git init
+git config --global alias.br branch
+

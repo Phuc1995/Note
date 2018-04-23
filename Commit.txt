@@ -1,0 +1,10 @@
+Gui chinh doi Relocate:
+-->TutoSVN-->Relocate
+
+//chay file commit trong linux
+./run.sh
+
+jira FNMS-18397
+Ingress and Egress QoS profile attributes needs to be removed from ISAM NCY Network Sub Interface template
+
+http://tiger.in.alcatel-lucent.com:8060/cru/APC9605-450#objectives

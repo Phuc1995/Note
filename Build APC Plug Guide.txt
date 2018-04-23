@@ -1,0 +1,110 @@
+
+
+                                BUILD AMS AND APC PLUG CODE
+                                
+
+==================================== A. COMMAND BUILD ====================================
+                                    
+1.  mvn clean install :     + build with unit test
+                            + add "-o" to build offline
+                            + add "-Dtest" to build without unit test
+    
+2.  mvn eclipse:eclipse :   build to import code to eclipse
+    
+3.  mvn -Danttarget=confjboss-full clean install :  build folder basic.app/package (server AMS)
+        
+
+================================ B. STEP BY STEP TO BUILD ================================
+
+Note: Default command build is build without unit test
+                                
+1. 	globalproperties
+2. 	setup
+3. 	generic.package
+		- modify file generic.package/product/src/main/configuration/standalone-full-ha.xml :
+			+ localhost:3306 -> <IP server>:3306 (có 2 chỗ cần fix)
+			+ Bật debug trong các tag <handler name="APCLOG_FILE"/>: INFO -> DEBUG (3 chỗ cần fix)
+			+ Tăng dung lượng file log: apc.log, server.log, snmptracing.log, mobject.log: 10000000 -> 20000000
+            + Bật level "TRACE" cho "com.alcatel.apc" log
+    ->			<logger category="com.alcatel.apc" use-parent-handlers="false">
+                    <level name="TRACE"/>
+                    <handlers>
+                        <handler name="APCLOG_FILE"/>
+                    </handlers>
+                </logger>
+4. 	basic.app
+5. 	basic.app/eclipseui
+6. 	basic.fwk (cmt: <!--module>schema-diff</module--> if basic.fwk/nbi fail at schema-diff)
+7. 	idm.app/idm.app.fwk
+           /plugins/idm.app.plugins.fwk 
+           /plugins/idm.app.plugins.*.*
+8.	apc.app
+           /plugins/apc.app.plugins.fwk : cmd build : mvn clean install
+           /plugins/apc.app.plugins.*.* : cmd build : mvn clean install
+9.	spfe.app
+            /spfe.app.fwk
+            /plugins/spfe.app.plugins.fwk : cmd build : mvn clean install
+            /plugins/spfe.app.plugins.*.* : cmd build : mvn clean install
+10. basic.app/package : cmd build : mvn -Danttarget=confjboss-full clean install
+
+
+=============================== C. DEPLOY AND START SERVER ================================
+			
+1. Start db
+
+2. Copy core and plug can thiet
+
+3. Deploy APC: apc.app/apc.app.fwk/server/jbossdeploy
+	3.1 Config:			pom.xml 	- comment các plug epon, gpon, isam không sử dụng, để tránh nặng server
+                                    - thêm các plug cần sử dụng vào, nếu không thì deploy thủ công
+	3.2 Deploy apc:	./deploy.sh
+
+4. Start server: 2deploy_startserver : xóa các file deploy fail và không sử dụng trước khi chạy script
+
+Trường hợp : 
+
+5. Start hay deploy failed:
+	5.1 Stop server : killserver.sh
+	5.2 Fix chỗ bị fail: Nếu sai port mysql thì sửa port trong file
+                            generic.package/product/src/main/configuration/standalone-full-ha.xml
+                    và file basic.app\clientporttester\axs-clientporttester\src\main\resources\portdescriptor.xml
+        và sửa dung lượng của jboss khi start trong script runjboss trong $TRUNK/scripts
+		
+	5.3 Xóa các file depoy fail và start lại server :   - cd $DEPLOY_DIR
+                                                        - rm -rf *failed
+                                                        - 2deploy_startserver
+	
+6. Khi deploy plug mới:
+	6.1 Stop server :
+            - Tùy trường hợp có thể không cần stop server 
+			- command: killserver.sh
+			- delete package: (*5.7) trong basic.app/package/target/ams-9.6.05-SNAPSHOT/server/wildfly/standalone/deployments/
+										và trong moplugs
+                                        
+	6.2 Chuẩn bị sẵn các file để deploy : chuẩn bị sẵn file build
+
+	6.3 Deploy plug và start server:    - deploy.sh p=isam57
+                                        - submitDeploy.sh
+                                        - apcplugundeploy.sh isam 5.7
+                                        - apcplugdeploy.sh
+                                        - 2deploy_startserver
+
+
+=============================== D. IMPORT CODE TO ECLIPSE ================================
+				
+- GUI :			basic.app/eclipseUi : ignore automation.drivers
+
+- AMS_PLUG : 	basic.isam.5.7
+
+- APC_CORE :	apc.app/apc.app.fwk/components : build eclipse before import
+
+- APC_PLUG : 	apc.app/plugins : - custom file pom.xml before build
+                                  - build eclipse before import
+
+- SPFE :		spfe.app/spfe.app.fwk
+				spfe.app/plugins/spfe.app.plugins.fwk
+				spfe.app/plugins/spfe.app.plugins.isam.**/client
+                spfe.app/plugins/spfe.app.plugins.isam.**/server : build eclipse before import
+
+
+- Start Gui : GUI -> com.alcatel.axs.gui.product -> axsclient.product                       

@@ -1,0 +1,36 @@
+git clone: dowload repository
+git status: kiem tra file chua dc Git theo doi
+git add *: add len GitHub
+git commit -m"content": commit code local --> git push: day len GitHub
+git commit -a -m"Add":
+git log: xem lich su
+git revert id : backup code cu
+git push origin serverfix:
+
+**************
+.gitignore: bo qua cac thu muc 
+git diff --staged:
+git add -all: add tat ca cac file
+git rm --cached <ten file>: xoa file
+git rm bin/\*txt: xoa tat ca .txt trong bin
+git log --pretty=oneline: xem log ngan gon
+git log --pretty=format:"%h - %an, %ar: %s": xem ro ngay thang, gio
+git log --since=2.weeks: xem log trong 2 tuan(months, years)
+git log --pretty="%h - %s" --author=gitster --since="20008-10-01"\: xem log theo autho va tu time
+git commit -amend: ghi de history commit 
+git reset HEAD <ten file>: unfig de khong commit
+git checkout -- <ten file>: code back
+git remote add <ten> <link Git>: load repository voi ten khac(git init)
+git fetch <ten file>: kiem tra co data moi hay khong?
+git pull: lay data ve
+git tag -a v1.0 -m"The firt release version 1.0": tao version release -->git push origin v1.0: tao version tren repository
+git tag -d v3.0: xoa version
+git ls-remote --tags---> git push origin --delete v2.0: xoa tren server
+
+
+
+
+
+
+ 
+

@@ -1,0 +1,3 @@
+git commit -amend: ghi de history commit 
+git reset HEAD <ten file>: unfig de kgong commit
+git checkout -- <ten file>: code back

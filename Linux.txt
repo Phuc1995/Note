@@ -1,0 +1,27 @@
+ps -ef | grep defunct  tim cac tien trinh rac
+ps -ef | grep nhoangp+ | grep jboss | grep defunct | awk '{print $3}' | xargs kill -9  xoa jboss rac
+
+|grep : loc file
+
+http://192.168.95.80/svn/axs/spfe.app/plugins/fwk/branches/
+
+//incaltel
+http://tiger.in.alcatel-lucent.com/svn/axs/
+
+
+/axs/branch9605/anv.app/plugins/anv.app.plugins.sddpu.5.6/axs-sddpu-genmodel-plugin$ cd ..
+svn patch $TMPDIR/mypatchfile.patch
+
+
+  MObjectId: /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=inband
+             /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=SFP1.ETH1
+  MObjectIds:
+    /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=sinband
+  MObjectIds:
+    /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=DSL2
+
+
+IsamAnvUtility
+SpfeActionSupport
+
+ 

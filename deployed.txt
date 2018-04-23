@@ -1,0 +1,37 @@
+Z:\axs\branch9605\basic.app\package\target\ams-9.6.05-SNAPSHOT\server\wildfly\standalone\deployments\moplugs
+
+http://192.168.95.80/svn/axs/spfe.app/plugins/sx16f/branches/5.6-150_9.6.05/
+
+Z:\axs\branch9605\anv.app\plugins\anv.app.plugins.anv.1.5.0 -> http://192.168.95.80/svn/axs/anv.app/plugins/anv/branches/1.5.0-150_9.6.05/
+
+vncserver -kill:1
+vncserver :1 geometry 1920x1000
+
+Z:\axs\branch9605\apc.app\plugins\apc.app.plugins.sx16f.5.6\server\src\main\resources  (ApcNEConfiguration.xml)
+http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
+
+
+https://gerrit.app.alcatel-lucent.com/ 
+
+https://gerrit.app.alcatel-lucent.com/gerrit/#/q/status:open 
+https://tpc-sslvpn-apac.alcatel-lucent.com/__extraweb__realmform?resource=%2Fworkplace%2Faccess%2Fhome&alias=workplace&r0=144&r1=145&r2=148&r3=149&r4=151&r5=154&r6=155&r7=156
+
+vqanh@tma.com.vn
+
+//Samba
+http://tiger.in.alcatel-lucent.com:8090/display/~atuanngu/Setup+dev+environment#Setupdevenvironment-Samba
+
+http://tiger.in.alcatel-lucent.com:8060/cru/AMSPLUGS9605ISAM-450#CFR-907518 
+
+
+X:\patch base-platform
+X:\code\base-platform\apps\pm
+X:\code\base-platform\stack
+
+http://tiger.in.alcatel-lucent.com:8060/cru/AMSPLUGS9605ISAM-450?_redir=login#CFR-907518
+http://tiger.in.alcatel-lucent.com:8090/display/~atuanngu/Setup+dev+environment#Setupdevenvironment-Samba
+
+C:\Program Files\TortoiseSVN\bin
+
+cchile/five.242526
+

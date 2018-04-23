@@ -1,0 +1,28 @@
+Clean: xoa sach tat ca service tren dia chi.
+Configure: cau hinh cac gia tri templase len NE.
+Audit: so sanh gia tri tu APC vs gia tri lay ve tu NE.
+Audit Port: Audit tren toan port
+Suspend: mot so bat buoc phai gan de lam viec khi Suspend.
+Resum: bo Suspend.
+Audit_after_Resume: so sanh lai khi Resume
+Reapply Service:unconfigure roi configure lai 
+Audit_after_Reapply:kiem tra sau khi Reapply
+Modify: thay doi gia tri actibute
+Audit_after_modify:
+Migrate: Unconfigutor roi copy lai theo strack.
+Audit_after_Migate_WithOldInstanceLabel:
+Audit_after_Migrate_WithNewInstanceLabel:
+Move:
+Audit_On_fromPort:
+Audit_On_toPort:
+Clean_after_move:
+Audit_Port_after_Clean1:
+Configure_For_Discover:
+Audit_after_configure:
+DB Unconfigure:
+Discover All Services:
+Audit_Port_after_Discover:
+Clean all:
+Audit_Port_after_Clean
+
+ko go dc temlpate

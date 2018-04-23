@@ -1,0 +1,42 @@
+set CODE=W:\code1
+W:
+cd %CODE%\base-platform\stack\nc-browser-web-app\src\main\webapp
+bower install --force-latest
+cd %CODE%\base-platform\stack\nc-client-web-app\src\main\webapp
+bower install --force-latest
+cd %CODE%\base-platform\apps\pm\pm-model-webapp\src\main\webapp
+bower install --force-latest
+cd %CODE%\base-platform\apps\system-administration-web-app\src\main\webapp
+bower install --force-latest
+cd %CODE%\base-platform\apps\weather-app\src\main\webapp
+bower install --force-latest
+cd %CODE%\base-platform\stack\landing-page-web-app\src\main\webapp
+bower install --force-latest
+cd %CODE%\anv\nav-device-manager\src\main\webapp
+bower install --force-latest
+
+./ee-environment/boxes/common-box/anvGit build -DskipTests=true m2clean nosonar
+
+build tai anv
+mvn clean install -Dtest -DfailIfNoTest=false
+
+
+ [Loi]http://tiger.in.alcatel-lucent.com:9999/nexus/content/groups/AMS/commons-net/commons-net/3.3/commons-net-3.3.pom. Return code is: 503 , ReasonPhrase:Service unavailable. -> [Help 1]
+ --> set proxy trong SVN
+
+ 
+ ./ee-environment/boxes/common-box/anvGit sudo mvn docker:build -do
+
+ sudo mvn docker:build
+
+ 
+ ***************
+ Z:\axs\scripts\deploy
+ <plugin name="spfeSddpu56">
+        <component name="app" path="spfe.app/plugins/spfe.app.plugins.sddpu.5.6/server"  />
+    </plugin>
+    
+    
+    deploy.sh p=spfeSddpu56
+    
+Z:\axs\branch9607\basic.app\package\target\ams-9.6.07-SNAPSHOT\server\wildfly\server\all\deploy
