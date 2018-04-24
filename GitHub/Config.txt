@@ -8,4 +8,5 @@ Kiem tra user and email: git config user.name ; git config user.email
 Help: git clone --help
 Tao Repository tren local: git init
 git config --global alias.br branch
+git config --global alias.last 'log -1 HEAD': xem log cuoi cung
 

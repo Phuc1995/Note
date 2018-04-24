@@ -19,19 +19,21 @@ git log --since=2.weeks: xem log trong 2 tuan(months, years)
 git log --pretty="%h - %s" --author=gitster --since="20008-10-01"\: xem log theo autho va tu time
 git commit -amend: ghi de history commit 
 git reset HEAD <ten file>: unfig de khong commit
-git checkout -- <ten file>: code back
+git checkout  <ten nhanh>: chuyen nhanh brach
 git remote add <ten> <link Git>: load repository voi ten khac(git init)***git remote add origin https://github.com/Phuc1995/Note.git**s
+git ls-remote origin: xem cac nhanh
 git push -u origin master
 git fetch <ten file>: kiem tra co data moi hay khong?
 git pull: lay data ve
 git tag -a v1.0 -m"The firt release version 1.0": tao version release -->git push origin v1.0: tao version tren repository
 git tag -d v3.0: xoa version
 git ls-remote --tags---> git push origin --delete v2.0: xoa tren server
+git branch <ten nhanh>: tao nhanh brach
+git branch -v: lich su nhanh brach
+git branch -D <ten nhanh>: xoa nhanh
+git log --oneline --decorate: xem HEAD
+git merge <ten nhanh can merge>: gop nhanh
+git rebase <ten nhanh>: cap nhat commit cho nhanh
+git rebase --onto <nhanh chinh><nhanh 1><nhanh 2>:
 
-
-
-
-
-
- 
 

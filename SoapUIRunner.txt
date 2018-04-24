@@ -24,5 +24,4 @@ Discover All Services:
 Audit_Port_after_Discover:
 Clean all:
 Audit_Port_after_Clean
-
-ko go dc temlpate
+auditNode: tao ID, kiem tra toan Port(GUI AMS-->ONT-->Inventory-->Collect)
