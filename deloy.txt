@@ -1,0 +1,10 @@
+1. Z:\axs\scripts\build\axs_deploy
+-->axs-deploy.xml --> script: deploy.sh p=
+-->Z:\axs\branch9605\basic.app\package\target\ams-9.6.06-SNAPSHOT\server\wildfly\server\all\deploy noi copy thu muc deploy
+
+2.Z:\axs\branch9605\basic.app\package\target\ams-9.6.06-SNAPSHOT\server\wildfly\bin --> file standalone.conf
+--> JAVA_OPTS="-Xms64m -Xmx3400m -XX:MetaspaceSize=3400M -XX:MaxMetaspaceSize=3400m -Djava.net.preferIPv4Stack=true"
+JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+
+3.Z:\axs\scripts\server--> file 2deploy_startserver
+-->./scripts/runjboss -full -debug idm.app/idm.app.fwk/server/axs-idm-app-deployment/ spfe.app/spfe.app.fwk/server/axs-spfe-app-deployment/ anv.app/server/axs-netconf-app-deployment/
