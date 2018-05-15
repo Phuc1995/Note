@@ -19,7 +19,7 @@ svn status: xem cac file co thay doi
 3. Basic.app	*
 4. Basic.app/eclipseUI	-* 
 - build de import code gui ams, chi build 1 lan
-5. Basic.fwk	*(toi day)    *
+5. Basic.fwk	    *
 7. generic.package	 (configure file generic.package/product/src/main/configuration/standalone-full-ha.xml for IP adress && Database && loger)*
 - chi build 1 lan de depend cho basic.app/package
 7.anv.app
@@ -31,7 +31,7 @@ anv.sddpu.
 8. idm.app/idm.app.fwk	*
    idm.app/plugins/idm.app.plugins.fwk 	-*
    idm.app/plugins/idm.app.plugins.<plug> 	*
-9. apc.app(toi day)
+9. apc.app
    apc.app/plugins/apc.app.plugins.fwk build co test
    apc.app/plugins/<plug> build co test
 10. Basic.app/package (build with command "mvn -Danttarget=confjboss-full clean install") 
