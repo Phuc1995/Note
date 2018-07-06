@@ -1,3 +1,15 @@
+check out code:
+http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
+- git clone ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
+-kbhatk@host-135-249-45-170:~/code2$ cd ee-environment
+-kbhatk@host-135-249-45-170:~/code2/ee-environment$ git checkout 1.3.0-int
+-Branch 1.3.0-int set up to track remote branch 1.3.0-int from origin.
+-Switched to a new branch '1.3.0-int'
+
+-Bien Moi truong:
+export PATH = $PATH:/
+vim ~/.bashrc
+
 set CODE=W:\code1
 W:
 cd %CODE%\base-platform\stack\nc-browser-web-app\src\main\webapp
@@ -6,29 +18,106 @@ cd %CODE%\base-platform\stack\nc-client-web-app\src\main\webapp
 bower install --force-latest
 cd %CODE%\base-platform\apps\pm\pm-model-webapp\src\main\webapp
 bower install --force-latest
-cd %CODE%\base-platform\apps\system-administration-web-app\src\main\webapp
+cd %CODE%\base-platform\apps\system-administration-web-app\src\main\webapp()
 bower install --force-latest
 cd %CODE%\base-platform\apps\weather-app\src\main\webapp
 bower install --force-latest
-cd %CODE%\base-platform\stack\landing-page-web-app\src\main\webapp
+cd %CODE%\base-platform\stack\landing-page-web-app\src\main\webapp(--)
 bower install --force-latest
 cd %CODE%\anv\nav-device-manager\src\main\webapp
 bower install --force-latest
 
 ./ee-environment/boxes/common-box/anvGit build -DskipTests=true m2clean nosonar
 
-build tai anv
-mvn clean install -Dtest -DfailIfNoTest=false
+-build tai anv:
+./ee-environment/boxes/common-box/anvGit pull
+mvn clean install -Dtest -DfailIfNoTests=false
 
+-start docker
+./ee-environment/boxes/common-box/nav-docker start
 
- [Loi]http://tiger.in.alcatel-lucent.com:9999/nexus/content/groups/AMS/commons-net/commons-net/3.3/commons-net-3.3.pom. Return code is: 503 , ReasonPhrase:Service unavailable. -> [Help 1]
- --> set proxy trong SVN
+-Kiem tra ee-environment
+git status
+
+-Kiem tra file Top-pom anv
+cd fnms-root-pom/
+ git pull
+ 
+-proxy http
+ export http_proxy=192.168.107.25:2525(4 cai HTTP HTTPS)
+ 
+ -Install pip
+ sudo apt install python-pip
 
  
+ pip install ruamel.yaml
+
+-Buil docker:
+./ee-environment/boxes/common-box/anvGit build -do
+sudo usermod -a -G docker $USER
+Artifact
+sudo update-ca-certificates
+sudo service docker restart
+http://tiger.in.alcatel-lucent.com:8090/display/5576ANVDOC/pagenotpermitted.action?pageId=81840817#id-.Gettingstartedv1.4.0-CertificatesConfiguration(NokiaArtifactory)
+
+ docker pull 135.249.45.113:9000/fnms-fluent:nokia-1.0.63 
+
+ -SAU KHI BUIL DOCKER XONG--> START DOCKER
+ vim ee-environment/boxes/common-box/nav-docker chinh "code151"
+ ee-environment/boxes/common-box/nav-docker start --noschemamount ---> nav-docker start --noschemamount 
+ vim ee-environment/boxes/common-box/navMinimalWithSyncope.yml --> chinh "3.4" thanh 3 
+ 
+ -Copy ssh
+ scp lccanh@192.168.95.225:/home/lccanh/axs/tools/Simulator.jar .
+ 
+ -SU DUNG Simulator.jar:
+ java -jar Simulator.jar
+
+ -Stop docker:
+ ee-environment/boxes/common-box/nav-docker stop
+ 
+-ReStart Docker: sudo service docker restart
+
+-Giai nen file
+tar -zxvf filename
+
+-Luu repository
+.m2\repository\com\alcatel\axs\master
+
+-DEPLOYED SDDPU 5.8 trong NAV: nhoangphuc@host-10-107-10-144:~/code151/ee-environment/boxes$ common-box/nav-docker deploy sddpu.5.8 CFAS-H
+ - copy file .jar vao thu muc deploy
+nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-yang-plugin/target$ docker cp anv-sddpu-cfas-h-yang-plugin-5.8-1-1.0.0-SNAPSHOT.jar anv-docker:/anv/anv-1.0.0-SNAPSHOT/deploy
+-Xem plug deployed: docker exec -it anv-docker bash --> sau do vao ./bin/client (dung lenh list xem plug da dc deploy hay chua)
+
+-Undeploy: nhoangphuc@host-10-107-10-144:~/code151/ee-environment/boxes$ common-box/nav-docker undeploy sddpu.5.8 CFAS-H
+
+-Tunnel: 
+        -nhoangphuc@ser-95-212:~/axs/scripts/vmtools$ ./nav-tunnel 
+        --> xem Tunnel nhoangphuc@ser-95-212:~/axs/scripts/vmtools$ ./nav-tunnel show
+        - kill -9 propreess  
+            
+-Search in linux:  grep -rnw . -e "letter"
+
+-Annotation in Nav:                         
+                   + nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/src/main/resources/annotations$ 
+                   + All Yang: nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/src/main/resources/variants/CFAS-H/allyang$ 
+                   
+-Kiem tra simulator xem co enable featur chua: 
+                                              + nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-simulator/src/main/resources$ vim simulator-application-context.xml
+                                              
+-Xem file html:
+                + http://tiger.in.alcatel-lucent.com:8090/pages/viewpage.action?pageId=88313117&preview=/88313117/88313024/SDDPU58_108.html#AXSREQ-4730-[plug][AV-A]SupportAMS9.6.05+AV1.5.0+ISAMR5.8-NTPconfiguration(/system/ntp)
+       
+- Cai dat bien moi truong: 
+                          +  alias ALL_YANG= "cd link"
+                                              
+- ALL_YANG, Annotation, Simulator
+                                              
  ./ee-environment/boxes/common-box/anvGit sudo mvn docker:build -do
 
+ 
  sudo mvn docker:build
-
+ anvGit build -do
  
  ***************
  Z:\axs\scripts\deploy

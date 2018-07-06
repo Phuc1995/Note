@@ -3,25 +3,10 @@ ps -ef | grep nhoangp+ | grep jboss | grep defunct | awk '{print $3}' | xargs ki
 
 |grep : loc file
 
-http://192.168.95.80/svn/axs/spfe.app/plugins/fwk/branches/
+cp \path_can _opy .(cp vi tri hien tai)
 
-//incaltel
-http://tiger.in.alcatel-lucent.com/svn/axs/
-
-
-/axs/branch9605/anv.app/plugins/anv.app.plugins.sddpu.5.6/axs-sddpu-genmodel-plugin$ cd ..
-svn patch $TMPDIR/mypatchfile.patch
-
-
-  MObjectId: /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=inband
-             /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=SFP1.ETH1
-  MObjectIds:
-    /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=sinband
-  MObjectIds:
-    /elementNr=5/device-holder_name=ONT2/device_device-id=ONT2/interface_name=DSL2
-
-
-IsamAnvUtility
-SpfeActionSupport
+Tim ten trong linux:
+-grep -rnw . -e "tenfilecantim"
+- /"String can tim", n next, Shit n: come back 
 
  

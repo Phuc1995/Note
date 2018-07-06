@@ -15,26 +15,39 @@ svn status: xem cac file co thay doi
 
 ===================== How to build==========================
 1. globalProperties	*
-2. Setup	*
-3. Basic.app	*
-4. Basic.app/eclipseUI	-* 
-- build de import code gui ams, chi build 1 lan
-5. Basic.fwk	    *
-7. generic.package	 (configure file generic.package/product/src/main/configuration/standalone-full-ha.xml for IP adress && Database && loger)*
-- chi build 1 lan de depend cho basic.app/package
+2. Setup	
+3. 	generic.package
+		- modify file generic.package/product/src/main/configuration/standalone-full-ha.xml :
+			+ localhost:3306 -> <IP server>:3306 (có 2 chỗ cần fix)
+			+ Bật debug trong các tag <handler name="APCLOG_FILE"/>: INFO -> DEBUG (3 chỗ cần fix)
+			+ Tăng dung lượng file log: apc.log, server.log, snmptracing.log, mobject.log: 10000000 -> 20000000
+            + Bật level "TRACE" cho "com.alcatel.apc" log
+    ->			<logger category="com.alcatel.apc" use-parent-handlers="false">
+                    <level name="TRACE"/>
+                    <handlers>
+                        <handler name="APCLOG_FILE"/>
+                    </handlers>
+                </logger>*
+4. Basic.app	*
+5. Basic.app/eclipseUI	-* 
+--> loi plug: 
+                +nhoangphuc@ser-95-212:~/branch9607/basic.app/eclipseui/products/com.alcatel.axs.gui.product$ svn revert axsclient.product 
+6. Basic.fwk	    
+-gedit nbi/pom.xml --> comment <!--module>schema-diff</module-->
+
 7.anv.app
 anv.spđu
 anv.sx16
 anv.
-
 anv.sddpu.
 8. idm.app/idm.app.fwk	*
    idm.app/plugins/idm.app.plugins.fwk 	-*
    idm.app/plugins/idm.app.plugins.<plug> 	*
-9. apc.app
-   apc.app/plugins/apc.app.plugins.fwk build co test
+9. Buil gsip
+10. apc.app
+   apc.app/plugins/apc.app.plugins.fwk build co test(toi day)
    apc.app/plugins/<plug> build co test
-10. Basic.app/package (build with command "mvn -Danttarget=confjboss-full clean install") 
+11. Basic.app/package (build with command "mvn -Danttarget=confjboss-full clean install") 
 - build de tao thu muc start ams server - chi build 1 lan
 
 =======================================================
@@ -140,3 +153,10 @@ SSH_KEY_PATH=~/.ssh/id_rsa
 AMSSFTPDB_USER_HOME_DIR=<user home_dir>
 
 AMSSFTPDB_USER=<user>
+
+Kiem tra tien trinh:
+-ps -ef|grep nhoangphuc|grep eclipse
+Tắt tiến trình:
+-killprocess eclipse
+
+

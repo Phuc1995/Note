@@ -38,6 +38,7 @@ Note: Default command build is build without unit test
 7. 	idm.app/idm.app.fwk
            /plugins/idm.app.plugins.fwk 
            /plugins/idm.app.plugins.*.*
+-Gsip
 8.	apc.app
            /plugins/apc.app.plugins.fwk : cmd build : mvn clean install
            /plugins/apc.app.plugins.*.* : cmd build : mvn clean install
@@ -88,6 +89,7 @@ Trường hợp :
                                         - apcplugundeploy.sh isam 5.7
                                         - apcplugdeploy.sh
                                         - 2deploy_startserver
+    6.4 Khi deploy.sh p="ten":          - Z:\branch9607\basic.app\package\target\ams-9.6.07-SNAPSHOT\server\wildfly\server\all\deploy copy vao deployments/
 
 
 =============================== D. IMPORT CODE TO ECLIPSE ================================

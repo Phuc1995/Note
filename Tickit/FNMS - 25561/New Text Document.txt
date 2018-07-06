@@ -1,2 +1,6 @@
 \\192.168.95.212\nhoangphuc\axs\branch9605\apc.app\plugins\apc.app.plugins.sddpu.5.8\server\src\main\resources
 --->ApcNeConfiguration.xml
+
+AbstractInterfaceToInterfaceLinkRelationStrategy
+
+\\192.168.95.212\nhoangphuc\axs\branch9607\basic.app\mobject\axs-mobject-api

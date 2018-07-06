@@ -4,7 +4,7 @@ http://192.168.95.80/svn/axs/spfe.app/plugins/sx16f/branches/5.6-150_9.6.05/
 
 Z:\axs\branch9605\anv.app\plugins\anv.app.plugins.anv.1.5.0 -> http://192.168.95.80/svn/axs/anv.app/plugins/anv/branches/1.5.0-150_9.6.05/
 
-vncserver -kill:1
+vncserver -kill: 1
 vncserver :1 geometry 1920x1000
 
 Z:\axs\branch9605\apc.app\plugins\apc.app.plugins.sx16f.5.6\server\src\main\resources  (ApcNEConfiguration.xml)
