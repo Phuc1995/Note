@@ -1,0 +1,52 @@
+FAST DSL 
+    C: DSL4
+    R: DSL4
+
+-------------NETWORK---------    
+Forwarder
+    C: DSL4
+    R: DSL4.VLAN25
+    
+Network Sub Interface
+    C: DSL4.VLAN25
+    R: DSL4.VLAN25.UPLINK.s2
+    
+Network Ingress Rule
+    C: DSL4.VLAN25.UPLINK.s2
+    R: DSL4.VLAN25.UPLINK.s2.rule
+    
+old:
+
+
+Network Sub Interface
+    C: DSL4.VLAN25
+    R: DSL4.VLAN25.SFP1.ETH1.s2
+    
+Network Ingress Rule
+    C: DSL4.VLAN25.SFP1.ETH1.s2
+    R: DSL4.VLAN25.SFP1.ETH1.s2.rule
+    
+-------------SUBSCRIBER---------    
+PTM
+    C: DSL4
+    R: DSL4.PTM
+    
+Subcriber Sub Interface
+    C: DSL4.PTM
+    R: DSL4.PTM.s4
+    
+Subscriber Ingress Rule
+    C: DSL4.PTM.s4
+    R: DSL4.PTM.s4.rule    
+    
+    
+
+    
+    
+    
+  create request (413512, nesting: none) on agent 14
+  MObjectType: nemodel.SDDPU.5.8:service=rule_ingress-rule,type=mobject
+  MObjectId: /elementNr=14/device_device-id=ONT4/interface_name=UPLINK.s3/rule_name=rule
+  priority = 1
+
+  MObjectContext: MObjectContext[]

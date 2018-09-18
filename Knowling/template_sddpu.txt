@@ -1,0 +1,5 @@
+-Z:\branch9607\anv.app\plugins\anv.app.plugins.sddpu.5.8\axs-sddpu-template\src\main\resources\META-INF --> template_sddpu.txt
+
+-axs/9.6.07_plugs/apc.app/plugins/apc.app.plugins.fwk/isamanv/src/main/java/com/alcatel/apc/nodesupport/isamanv/resource: Variable 
+
+- resolver: get value from AMS-->NE to APC

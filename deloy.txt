@@ -10,4 +10,4 @@ JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Dj
 -->./scripts/runjboss -full -debug idm.app/idm.app.fwk/server/axs-idm-app-deployment/ spfe.app/spfe.app.fwk/server/axs-spfe-app-deployment/ anv.app/server/axs-netconf-app-deployment/
 
 4.Deploy APCServer
--cd $apcserver --> mvn clean install -->./deploy.sh 
+-cd build het -? cd $apcserver -->  -->./deploy.sh 

@@ -1,0 +1,26 @@
+-Hien thi image:    
+                + docker images
+-Dowload image ve local:
+                + docker pull <nmae_image:tag> ((phần :tag là options, nếu để trống  thì mặc định download bản latest ))
+-Run docker:
+                + docker run –name <tên_container> -v <thư mục trên máy tính>:<thư mục trong container> -p<port_máy tính>:<port_container>  <image name> bash
+                    example:  docker run –name  eva_nginx  -p 80:80 -d nginx
+                                -docker run : lệnh chạy của docker
+                                –name: đặt tên cho container ở đây là  eva_nginx . Name này là duy nhất, không thể tạo trùng, nếu không đặt thì docker tự genate.
+                                -p mở port container ra ngoài IP public  192.168.99.100
+                                -d bật chế độ chạy background
+                                nginx: tên images
+-Liệt kê các container:
+                + docker ps -a (liệt kê tất cả các container)
+                + docker ps  ( chỉ liệt kê các container đang chạy background)
+-Dung cac container dang chay:
+                + docker stop <container_id hoặc name_container>
+                + docker stop $(docker ps –a –q) (Dừng tất cả các docker đang dùng)
+-Khoi dong lai docker :
+                + docker start <container_id hoặc name_container>
+-Truy cap vao 1 container dang chay:
+                + docker exec -it <container_id hoặc name_container> bash
+-Export ban container: 
+                + docker export <container_id hoặc name_container> | gzip > file_export.tar.gz
+-Import container => image:
+                + zcat file_export.tar.gz | docker <new_name_image>Sau khi chạy xong. Chạy lệnh docker images để kiểm tra lại trong danh sách list images.

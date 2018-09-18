@@ -1,0 +1,2 @@
+-Chua cau hinh PROFILE trong DSL:
+                    + Trên AMS GUI: Device->Infrastructure->XDSL->G.Fact->Create PROFILE

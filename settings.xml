@@ -1,0 +1,146 @@
+<settings>
+
+    
+   <!--localRepository>/home/nhoangphuc/.m2/repository</localRepository-->
+   <localRepository>/home/nhoangphuc/.m2/repo</localRepository>
+    
+    
+    <proxies>
+        <proxy>
+          <active>true</active>
+          <protocol>http</protocol>
+          
+          <host>192.168.107.51</host>
+          <port>9998</port>
+
+          
+          <!--<port>8888</port>-->
+          <!--<host>192.168.72.118</host>
+            <port>5555</port>-->
+          <!-- -->
+          <!--<host>192.168.72.23</host>
+          <port>5556</port>-->
+           
+          <!-- 
+          <host>192.168.72.181</host>
+          <port>5555</port>-->
+          <!--<host>192.168.72.38</host>
+          <port>28000</port>-->
+          <nonProxyHosts>*192.168.72.*,*192.168.95.*</nonProxyHosts>
+          <!--
+          <username />
+          <password /> -->
+        </proxy>
+    </proxies>
+
+    <pluginGroups>
+        <pluginGroup>org.codehaus.mojo</pluginGroup>
+        <pluginGroup>com.axs.maven.plugins</pluginGroup>
+        <pluginGroup>com.alcatel.axs.maven.plugins</pluginGroup>
+        <pluginGroup>com.alcatel.nmhn.maven.plugins</pluginGroup>
+        <pluginGroup>org.codehaus.sonar</pluginGroup>        
+        <pluginGroup>org.eclipse.swt.nebula</pluginGroup>
+    </pluginGroups>
+    
+    <mirrors>
+        <!--
+        <mirror>
+            <id>mavenproxy-snapshot</id>
+            <mirrorOf>axs-repo-snapshot</mirrorOf>
+            <url>http://192.168.95.19:8081/nexus/content/repositories/axs-repo-snap/</url>
+            <name>Maven Proxy</name>
+        </mirror>
+        <mirror>
+            <id>mavenproxy</id>
+            <mirrorOf>*</mirrorOf>
+            <url>http://192.168.95.19:8081/nexus/content/repositories/axs-repo/</url>
+            <name>Maven Proxy</name>
+        </mirror>
+        -->
+        
+
+        <mirror>
+            <id>mavenproxy-snapshot</id>
+            <mirrorOf>axs-repo-snapshot</mirrorOf>
+            <url>http://tiger.in.alcatel-lucent.com:9999/nexus/content/groups/AMS</url>
+            <name>Maven Proxy</name>
+        </mirror>
+        <mirror>
+            <id>mavenproxy</id>
+            <mirrorOf>*</mirrorOf>
+            <url>http://tiger.in.alcatel-lucent.com:9999/nexus/content/groups/AMS</url>
+            <name>Maven Proxy</name>
+        </mirror>
+        
+    </mirrors>
+
+    <servers>
+        <server>
+            <id>axs.internal</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+        <server>
+            <id>axs.thirdparty</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+        <server>
+            <id>axs.site</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+    </servers>
+
+    <profiles>
+        <profile>
+            <id>localrepos</id>
+
+            <properties>
+                <failIfNoTests>false</failIfNoTests>
+            </properties>
+            
+            <repositories>
+                <repository>
+                  <id>axs-repo-snapshot</id>
+                  <name>axs-repo-snapshot</name>
+                  <url>http://tiger.in.alcatel-lucent.com:9999/nexus/content/groups/AMS</url>
+                </repository>
+                <repository>
+                  <id>axs-repo</id>
+                  <name>axs-repo</name>
+                  <!--
+                  <url>http://192.168.95.19:8081/nexus/content/repositories/axs-repo/</url>
+                  <url>http://192.168.95.19:8081/nexus/content/groups/alcatel-maven/</url>-->
+                  <url>http://tiger.in.alcatel-lucent.com:9999/nexus/content/groups/AMS</url>
+                </repository>
+              </repositories>
+        </profile>
+        
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- EXAMPLE FOR MYSQL -->
+                <sonar.jdbc.url>
+                jdbc:mysql://192.168.92.49:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+                </sonar.jdbc.url>
+                <sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
+                <sonar.jdbc.username>sonar</sonar.jdbc.username>
+                <sonar.jdbc.password>sonar</sonar.jdbc.password>
+
+                <!-- SERVER ON A REMOTE HOST -->
+                <sonar.host.url>http://192.168.92.49:9000</sonar.host.url>
+            </properties>
+        </profile>
+    </profiles> 
+
+    <activeProfiles>
+        <activeProfile>localrepos</activeProfile>
+    </activeProfiles>
+</settings>
+
+ 
+

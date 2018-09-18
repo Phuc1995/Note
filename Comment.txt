@@ -1,0 +1,10 @@
+See attachments for verification.
+A snapshot showing the same is attached. 
+
+apc-isamanv.properties
+IsamAnvSddpuConfiguratorResources
+
+create PTm--> lower Layer --> Fast DSL
+
+-reproduce: tai san suat
+-sceenshoot

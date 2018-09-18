@@ -1,0 +1,3 @@
+http://fastsnapshot.in.alcatel-lucent.com:8080/allPlans.action;jsessionid=860B28ECD5A4CC40EA7FCA930C89BD3B 
+http://fastsnapshot.in.alcatel-lucent.com:8080/browse/AMS-UT9607/latest
+http://fastsnapshot.in.alcatel-lucent.com:8080/browse/AMS-ALL9607
