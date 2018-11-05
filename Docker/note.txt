@@ -24,3 +24,13 @@
                 + docker export <container_id hoặc name_container> | gzip > file_export.tar.gz
 -Import container => image:
                 + zcat file_export.tar.gz | docker <new_name_image>Sau khi chạy xong. Chạy lệnh docker images để kiểm tra lại trong danh sách list images.
+=====================================================================================================================================================
+docker run -ti ubuntu:latest bash
+create file in images: touch nane_file
+docker ps -a : check container was stop 
+docker ps -l : check container last near
+STATUS Exited: (search docker.com document )
+    + 0: successfull
+    + 130 : ctrt C or ctrt D 
+    + 125 : docker branch error
+    + 126 : comnad not run

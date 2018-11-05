@@ -1,15 +1,17 @@
-check out code:
-http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
+check out code: http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
 - git clone ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
 -kbhatk@host-135-249-45-170:~/code2$ cd ee-environment
--kbhatk@host-135-249-45-170:~/code2/ee-environment$ git checkout 1.3.0-int
+-kbhatk@host-135-249-45-170:~/code2/ee-environment$ git checkout 1.6.0-int
+./ee-environment/boxes/common-box/anvGit nac clone checkout 1.6.0-int
+export CSL=aquocvo
 -Branch 1.3.0-int set up to track remote branch 1.3.0-int from origin.
 -Switched to a new branch '1.3.0-int'
-
+=======================================================================================================================================================================================
 -Bien Moi truong:
-export PATH = $PATH:/
-vim ~/.bashrc
-
+                + export PATH = $PATH:/
+                + vim ~/.bashrc
+                + proxy http: export http_proxy=192.168.107.25:2525(4 cai HTTP HTTPS)
+=========================================================================================================================================================================================
 set CODE=W:\code1
 W:
 cd %CODE%\base-platform\stack\nc-browser-web-app\src\main\webapp
@@ -26,57 +28,63 @@ cd %CODE%\base-platform\stack\landing-page-web-app\src\main\webapp(--)
 bower install --force-latest
 cd %CODE%\anv\nav-device-manager\src\main\webapp
 bower install --force-latest
-
-./ee-environment/boxes/common-box/anvGit build -DskipTests=true m2clean nosonar
-
--build tai anv:
-./ee-environment/boxes/common-box/anvGit pull
-mvn clean install -Dtest -DfailIfNoTests=false
-
--start docker
-./ee-environment/boxes/common-box/nav-docker start
-
--Kiem tra ee-environment
-git status
-
--Kiem tra file Top-pom anv
-cd fnms-root-pom/
- git pull
+=========================================================================================================================================================================================
+Build code:
+        + TRUNK CODE: ./ee-environment/boxes/common-box/anvGit build -DskipTests=true m2clean nosonar
+        + mvn clean install -Dtest -DfailIfNoTests=false
+        + mvn install -DskipTests
+Buil docker: 
+        + ./ee-environment/boxes/common-box/anvGit build -do
+        + sudo usermod -a -G docker $USER
+        + ee-environment/boxes/common-box/anvGit build -sd ee-environment/boxes/common-box/dockers.txt
+        + ee-environment/boxes/common-box$ ./nacLatest 
+        + docker-compose -f av_ac_setup_latest.yml up (trunK : local/nac-docker)
+View NAC: docker exec -it nac bash
+          + ./bin/client
+Error exit container: docker stop $(docker ps -aq)
+                    + docker rm $(docker ps -aq)
  
--proxy http
- export http_proxy=192.168.107.25:2525(4 cai HTTP HTTPS)
- 
- -Install pip
- sudo apt install python-pip
-
- 
- pip install ruamel.yaml
-
--Buil docker:
-./ee-environment/boxes/common-box/anvGit build -do
-sudo usermod -a -G docker $USER
+Create network: docker network create --driver bridge nac_network(name network)
+       
+Build tai anv:
+        +./ee-environment/boxes/common-box/anvGit pull     
+Start docker:
+        + ./ee-environment/boxes/common-box/nav-docker start --no
+        + docker stop $(docker ps -aq)
+        + docker rm $(docker ps -aq)
+Stop docker: 
+        + ee-environment/boxes/common-box/nav-docker stop (nav 1.5.1)
+        + 
+ReStart Docker: 
+        + sudo service docker restart
+Kiem tra file Top-pom anv:
+        + cd fnms-root-pom/
+        + git pull
+=========================================================================================================================================================================================     
+Pip:
+  + sudo apt-get remove python-pip python3-pip
+  + Uninstall : sudo pip uninstall pip
+  + Install pip: sudo apt install python-pip
+  pip install ruamel.yaml
+=========================================================================================================================================================================================
 Artifact
 sudo update-ca-certificates
 sudo service docker restart
 http://tiger.in.alcatel-lucent.com:8090/display/5576ANVDOC/pagenotpermitted.action?pageId=81840817#id-.Gettingstartedv1.4.0-CertificatesConfiguration(NokiaArtifactory)
+ -docker pull 135.249.45.113:9000/fnms-fluent:nokia-1.0.63 
+=========================================================================================================================================================================================
+SAU KHI BUIL DOCKER XONG--> START DOCKER:
+        + vim ee-environment/boxes/common-box/nav-docker chinh "code151"
+        + ee-environment/boxes/common-box/nav-docker start --noschemamount ---> nav-docker start --noschemamount 
+        + vim ee-environment/boxes/common-box/navMinimalWithSyncope.yml --> chinh "3.4" thanh 3 
+        + export ARTIFACTORY_IP=135.249.45.113
+=========================================================================================================================================================================================
+ -Copy ssh:
+        +scp lccanh@192.168.95.225:/home/lccanh/axs/tools/Simulator.jar .
+=========================================================================================================================================================================================
+ -SU DUNG Simulator.jar:java -jar Simulator.jar
+=========================================================================================================================================================================================
 
- docker pull 135.249.45.113:9000/fnms-fluent:nokia-1.0.63 
-
- -SAU KHI BUIL DOCKER XONG--> START DOCKER
- vim ee-environment/boxes/common-box/nav-docker chinh "code151"
- ee-environment/boxes/common-box/nav-docker start --noschemamount ---> nav-docker start --noschemamount 
- vim ee-environment/boxes/common-box/navMinimalWithSyncope.yml --> chinh "3.4" thanh 3 
- 
- -Copy ssh
- scp lccanh@192.168.95.225:/home/lccanh/axs/tools/Simulator.jar .
- 
- -SU DUNG Simulator.jar:
- java -jar Simulator.jar
-
- -Stop docker:
- ee-environment/boxes/common-box/nav-docker stop
- 
--ReStart Docker: sudo service docker restart
 
 -Giai nen file
 tar -zxvf filename
@@ -88,6 +96,8 @@ tar -zxvf filename
  - copy file .jar vao thu muc deploy
 nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-yang-plugin/target$ docker cp anv-sddpu-cfas-h-yang-plugin-5.8-1-1.0.0-SNAPSHOT.jar anv-docker:/anv/anv-1.0.0-SNAPSHOT/deploy
 -Xem plug deployed: docker exec -it anv-docker bash --> sau do vao ./bin/client (dung lenh list xem plug da dc deploy hay chua)
+
+nhoangphuc@host-10-107-10-144:~/code151$  ee-environment/boxes/common-box/nav-docker console
 
 -Undeploy: nhoangphuc@host-10-107-10-144:~/code151/ee-environment/boxes$ common-box/nav-docker undeploy sddpu.5.8 CFAS-H
 
@@ -129,3 +139,84 @@ nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-ya
     deploy.sh p=spfeSddpu56
     
 Z:\axs\branch9607\basic.app\package\target\ams-9.6.07-SNAPSHOT\server\wildfly\server\all\deploy
+
+nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/target/generated-resources/workspace/yangintegrated$ 
+
+sysctl -w vm.max_map_count=262144 : khi loi second giay
+
+sudo npm install --global yarn@1.7.0
+sudo apt update && sudo apt install yarn -y
+
+install yarn: https://www.codehub.vn/Huong-Dan-Cai-Dat-va-Su-Dung-Yarn-Package-Manager
+
+-error An unexpected error occurred: "https://registry.yarnpkg.com/ams-dynamic-locale: unable to verify the first certificate".
+info If you think this is a bug, please open a bug report with the information provided in "/home/nhoangphuc/code151new/base-platform/stack/nc-browser-web-app/src/main/webapp/yarn-error.log".
+    + yarn config set proxy http://192.168.107.51:9998
+    + yarn config set https-proxy http://192.168.107.51:9998
+    + file .npmrc :
+        + proxy=http://192.168.107.50:9898/
+        + http-proxy=http://192.168.107.50:9898/
+        + https-proxy=http://10.10.10.10:8080 
+        
+- config docker proxy: vim /etc/default/docker
+nhoangphuc@host-10-107-10-144:~/code151new/ee-environment/boxes/common-box$ ./nav-sim sddpu.5.8 CFAS-H
+
+-diag
+
+-git apply --stat patch_final
+
+-git reset HEAD~;
+-git remote -v
+-git remote set-url origin ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ANVAutomation (fetch) 
+
+If you want remove all local changes from your working copy, simply stash them:
+
+git stash save --keep-index
+If you don't need them anymore, you now can drop that stash:
+
+pip uninstall pyang
+git stash drop
+==============================================================================================================================================================
+fix version NAC:
+            + rm /usr/local/bin/docker-compose
+            + sudo curl -L "<https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)>" -o /usr/local/bin/docker-compose
+            + chmod +x /usr/local/bin/docker-compose
+
+==========================================================================================================================================================================
+helm: 
+    + cd /tmp
+    + curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > install-helm.sh
+    + chmod u+x install-helm.sh
+    + ./install-helm.sh
+Error local: helm init --client-only
+Error connect corrud: 
+                    + helm serve (run in terminal not cancel)
+                    + helm repo add local http://localhost:8879/charts (check)
+Ignorre: X:\AC\deployment
+======================================================================================================================================================================
+utc> package
+mvn clean install docker:build 
+
+dung ngay thu muc code: find . -name yarn.lock -print0 | xargs -0 rm
+======================================================================================================================================================================
+ Error: ENOENT: no such file or directory, scandir '/home/nhoangphuc/AC/controller-platform/ibn-web-app/src/main/webapp/node_modules/node-sass/vendor'
+Warning: Task "sass" failed. Use --force to continue.
+
+<execution>
+                        <id>exec-node-sass-build</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>rebuild</argument>
+                                <argument>node-sass</argument>
+                            </arguments>
+                            <workingDirectory>${basedir}/src/main/webapp</workingDirectory>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+======================================================================================================================================================================                   
+sudo npm uninstall npm -g
+http://192.168.95.124:8181/login.html 

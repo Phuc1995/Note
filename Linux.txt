@@ -1,12 +1,34 @@
-ps -ef | grep defunct  tim cac tien trinh rac
-ps -ef | grep nhoangp+ | grep jboss | grep defunct | awk '{print $3}' | xargs kill -9  xoa jboss rac
+-ps -ef | grep defunct  tim cac tien trinh rac
+-ps -ef | grep nhoangp+ | grep jboss | grep defunct | awk '{print $3}' | xargs kill -9  xoa jboss rac
+=========================================================================================
+-|grep : loc file
 
-|grep : loc file
+=======================================================================================
+-cp \path_can _opy .(cp vi tri hien tai)
 
-cp \path_can _opy .(cp vi tri hien tai)
+-Tim ten trong linux:
+    +grep -rnw . -e "tenfilecantim"
+    - /"String can tim", n next, Shit n: come back 
+    
+- Luu file : :wq!
 
-Tim ten trong linux:
--grep -rnw . -e "tenfilecantim"
-- /"String can tim", n next, Shit n: come back 
+- Lenh remove : rm -option:
+    -f: buộc xóa các file có thông báo nhắc nhở
+    -i: nhắc nhở trước khi xóa 
+    -r: xóa bỏ các thư mục đệ quy 
+    -d: xóa các thư mục rỗng
+    -v: giải thích đang thực hiện nhiệm vụ gì
+    
+- Lenh ps:
+    + -e – Hiện tất cả processes.
+    + -f – Toàn bộ danh sách được format.
+    + -r – Chỉ hiện những process đang chạy.
+    + -u – chỉ định username (hoặc nhiều usernames).
+    + –pid – lọc dựa trên PID.
+    + m–ppid – lọc dựa trên parent PID.
+    + -C – lọc dựa trên tên và command.
+    + -o – Hiện thông tin liên quan đến từ khóa cách nhau bởi khoảng trắng hoặc dấu phẩy
 
- 
+ =========================================================================================
+ check version: lsb_release -a
+ ======================================================================================

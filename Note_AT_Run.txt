@@ -1,0 +1,176 @@
+================================================
+I/ Path for AMS Libs/Resources:
+===
+	~/code/common-auto-fwk/robot-keywords/ams/src/main/java/com/nokia/epg/automation/keywords/ams
+	Included 2 folders:
+		- lib
+		- resources
+
+================================================
+II/ Load Testsuite from Ride:
+===
+1/ File > Open Directory
+	~/code/ANVAutomation/src/test/robotframework/acceptance/tests/nav/
+	All related Test suites and resources for AV and AV-A are existed here.
+
+2/ Nav > NAV AMS Plugs:
+	AMS Plugs: all testsuites related to AV-A
+	APC Plugs: all testsuites related to APC NBI
+	NAV Plugs: all testsuites related to AV only
+	
+================================================
+III/ Local Configuration:
+===
+1/ The path for ams client that be extracted in server machine with following format:
+	/home/bhongkim/amsclient/<ams core version>/amsclient/amsclient.exe
+	Ex: /home/bhongkim/amsclient/390245/amsclient/amsclient.exe
+
+
+2/  Update "ServerWrapper.py" file in common-auto-fwk:
+	a/ Navigate to ~/code/common-auto-fwk/robot-keywords/ams/src/main/java/com/nokia/epg/automation/keywords/ams/lib/AMS/ServerWrapper.py
+	Note: This file is used for setup AMS Server, if we setup it manually we should do this change:
+	
+	b/ Put 2 below values in pair of single quote:
+		self.buildNr = 'Snapshots.findLatestBuild()'
+		self.revNr  = 'Snapshots.findRevisionNr(self.buildNr)' 
+
+	
+3/ Update Server and Client information in "MyLocalHardwarePool.py":
+	a/ Navigate to ~/code/common-auto-fwk/robot-keywords/ams/src/main/java/com/nokia/epg/automation/keywords/ams/lib/SUT/MyLocalHardwarePool.py
+	Note: This file is used to reserve IP of server to install AMS and server to download AMS client
+	
+	b/ Update 2 first row of server Machines and clientMachines:
+		serverMachines = [ ServerMachine('135.249.42.149', 'admin1', 'pcctest@!96', {'serverCon':'pcc'}),
+		Change to => serverMachines = [ ServerMachine('30.1.1.229', 'admin1', 'chenn@!96', {'serverCon':'pcc'}),
+		 
+		clientMachines = [ ClientMachine('135.249.45.201', 'admin', 'admin123', ':15.0', {'clientCon':'pcc'}),
+		 Change to => clientMachines = [ ClientMachine('30.1.1.203', 'bhongkim', 'welcome', ':1.0', {'clientCon':'pcc'}),
+	Note: 
+		For serverMachines:
+			'30.1.1.229" : IP of these servers should be private IP
+			'admin1' : password to login AMS client after changed password in the first time
+			'pcctest@!96' : password to ssh to AMS server
+			'serverCon':'pcc' : the condition that will be used in command to run automation
+		For clientMachines:
+			'30.1.1.203'
+			'bhongkim' : username to ssh client server / Vagrant Server
+			'welcome' : password to ssh client server / Vagrant Server
+			':15.0' : the vnc session of the server
+			'clientCon':'pcc' : the condition that will be used in command to run automation
+
+
+4/ Comment some rows in setup keywords if all installations for both AMS and AV have been done manually:
+	a/ Open Ride and navigate to ~/code/ANVAutomation/src/test/robotframework/acceptance/tests/nav/ANV/Keywords/AnvAms.txt
+		Select all rows in kw "pc Setup ANV with AMS" except this row:
+			Run Keyword if	'${Use_GUI}'=='${True}' \ and \ '${installAms}'=='${False}'	Attach ANV to Already Running Client
+	Note: this step will open ams client only and then run the selected TCs
+
+	b/ Navigate to Testsuite that noted in path II/
+		Comment all step Suite Teardown
+	Note: If not, maybe it will uninstall all setup :(
+    
+    c/ Comment all step in pc Setup NAV Simulators with AMS except:
+        + Attach ANV to Already Running Client
+		
+    
+================================================
+IV/ Command to trigger automation:
+
+-start ride: ride.py
+-build : a. common-auto-fwk (mvn clean install -DskipTest)
+         b. ANVAutomation
+
+         
+after run command
+1/ Navigate to "~/code/ANVAutomation" and run below command (should change related values base on your VM's info):
+
+	mvn initialize robotframework:run -Dincludes=BAC-ENTRY -Dip=10.107.10.144 -Duname=nhoangphuc -Dpassword=welcome -Ddocker_config.common_images_tag=1.5.1-int_1760 -DsiteName=Finland-Cloud3 -DdeploymentType=test -Dapp.name=ANV -Dlog4j.configuration=file:/home/nhoangphuc/code151new/ANVAutomation/src/test/robotframework/acceptance/tests/testManagement/resources/log4j.properties -Dlog4j.path=/home/nhoangphuc/code151new/ANVAutomation/target/robotframework-reports -Dlistener=com.nokia.epg.automation.libs.utilities.CommonLogListener -Dlog4j.filename=automation -DtestEnv=TestEnv9607 -Dvariables=envFile:NAVCloudEnv -Dvariables=serverCon:pcc,clientCon:pcc,DISABLE_OTHERVAPPLUG:True -Ddocker_config.mavenrepo=http://10.74.65.35/artifactory/libs-candidate-release@id=1.5.1-int_1760 -DappContextPath=/application-context.xml -Danv.enable_mount_point=false -Dsddpu.interface_version=5.8 -Dsddpu.plug_version=1 -Dsddpu.variant_name=cfas-h
+
+
+Note:
+	-Dincludes=kiba124 : all TC that have this Tag will be run this time
+	-Dexcludes=inprogress : all TC that have this Tag won't be run this time
+	-Dip=30.1.1.203 : private IP if Vagrant VM
+	-Duname=bhongkim : user to ssh to Vagrant VM
+	-Dpassword=welcome : password to ssh to Vagrant VM
+	
+These values will be you to select the VMs to run automation, these files are exist in ~/code/common-auto-fwk
+	-Dvariables=envFile:NAVCloudEnv 
+	-Dvariables=serverCon:pcc,clientCon:pcc
+
+Schema mount:
+	-Danv.enable_mount_point=false : schema mount is disable
+
+Other configures for specific nonref plug (ex: SDDPU CFAS-H 5.8, default is SDDPU CFAS-B 5.6)
+	-Dsddpu.interface_version=5.8 
+	-Dsddpu.plug_version=1 
+	-Dsddpu.variant_name=cfas-h 
+	
+Below values are used for automation setup AMS and NAV:
+	-Ddocker_config.common_images_tag=1.5.1-int_1760 
+	-DsiteName=Finland-Cloud3 
+	-DdeploymentType=test 
+	-Dapp.name=ANV 
+	-Dlog4j.configuration=file:/home/bhongkim/code/ANVAutomation/src/test/robotframework/acceptance/tests/testManagement/resources/log4j.properties -Dlog4j.path=/home/bhongkim/code/ANVAutomation/target/robotframework-reports 
+	-Dlistener=com.nokia.epg.automation.libs.utilities.CommonLogListener -Dlog4j.filename=automation 
+	-Ddocker_config.mavenrepo=http://10.74.65.35/artifactory/libs-candidate-release@id=1.5.1-int_1760 
+	-DappContextPath=/application-context.xml
+	-DtestEnv=TestEnv9607
+
+    Error when run AT
+    config in Attach ANV to Already Running client:
+    - $(actualClientPath): set Variable : /home/nmnghia/amsclient/9.6.07-SNAPSHOT/amsclient/amsclient
+    - comment line 6: syncWithNtpServer
+    
+    Error AMS GUI: missing metadata for gui
+    - Adding into feature.xml in amsclient\9.6.07-SNAPSHOT\amsclient\features\com.alcatel.axs.gui.platform.feature_9.6.0.201808070659
+    <plugin
+         id="com.alcatel.axs.gui.platform.anv151"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         fragment="true"
+         unpack="false"/>
+    
+    <plugin
+         id="com.alcatel.axs.gui.platform.sddpu58"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.alcatel.axs.gui.graphicalview.sddpu58"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.alcatel.axs.gui.swmgmt.sddpu.58"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="com.alcatel.axs.gui.anv"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+  Z:\branch9607\anv.app\client\plugins\com.alcatel.axs.gui.anv\target
+         
+   <plugin
+         id="com.alcatel.axs.gui.anv.automation.drivers"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+  -Z:\branch9607\anv.app\client\plugins\com.alcatel.axs.gui.anv.automation.drivers\target
+         
+     - Copy file jars from plugs (anv, sddpu) in anv plugins and paste to amsclient\9.6.07-SNAPSHOT\amsclient\plugins
+     ==========================================================================================================================================
+     
