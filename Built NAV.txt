@@ -1,11 +1,11 @@
 check out code: http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
-- git clone ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
--kbhatk@host-135-249-45-170:~/code2$ cd ee-environment
--kbhatk@host-135-249-45-170:~/code2/ee-environment$ git checkout 1.6.0-int
+git clone ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
+kbhatk@host-135-249-45-170:~/code2$ cd ee-environment
+kbhatk@host-135-249-45-170:~/code2/ee-environment$ git checkout 1.6.0-int
 ./ee-environment/boxes/common-box/anvGit nac clone checkout 1.6.0-int
 export CSL=aquocvo
--Branch 1.3.0-int set up to track remote branch 1.3.0-int from origin.
--Switched to a new branch '1.3.0-int'
+Branch 1.3.0-int set up to track remote branch 1.3.0-int from origin.
+Switched to a new branch '1.3.0-int'
 =======================================================================================================================================================================================
 -Bien Moi truong:
                 + export PATH = $PATH:/
@@ -39,7 +39,7 @@ Buil docker:
         + ee-environment/boxes/common-box/anvGit build -sd ee-environment/boxes/common-box/dockers.txt
         + ee-environment/boxes/common-box$ ./nacLatest 
         + docker-compose -f av_ac_setup_latest.yml up (trunK : local/nac-docker)
-View NAC: docker exec -it nac bash
+View NAC: docker exec -ti nac bash
           + ./bin/client
 Error exit container: docker stop $(docker ps -aq)
                     + docker rm $(docker ps -aq)
@@ -61,6 +61,7 @@ Kiem tra file Top-pom anv:
         + cd fnms-root-pom/
         + git pull
 =========================================================================================================================================================================================     
+Eorror: __init__
 Pip:
   + sudo apt-get remove python-pip python3-pip
   + Uninstall : sudo pip uninstall pip
@@ -79,69 +80,51 @@ SAU KHI BUIL DOCKER XONG--> START DOCKER:
         + vim ee-environment/boxes/common-box/navMinimalWithSyncope.yml --> chinh "3.4" thanh 3 
         + export ARTIFACTORY_IP=135.249.45.113
 =========================================================================================================================================================================================
- -Copy ssh:
+Copy ssh:
         +scp lccanh@192.168.95.225:/home/lccanh/axs/tools/Simulator.jar .
 =========================================================================================================================================================================================
- -SU DUNG Simulator.jar:java -jar Simulator.jar
+remove plug: docker exec -ti anv-docker bash
+            + in bin : cd deploy--> rm plug
+SU DUNG Simulator.jar:java -jar Simulator.jar
 =========================================================================================================================================================================================
+Add liences NAC: + use file License_NAC.txt
+                 + http://192.168.95.124:7181 --> adminsytem --> add --> Name: Core
+                 + http://192.168.95.124:9181 --> system-administration-web-app --> add --> Name: Core
+=========================================================================================================================================================================================
+Giai nen file: +tar -zxvf filename
 
-
--Giai nen file
-tar -zxvf filename
-
--Luu repository
-.m2\repository\com\alcatel\axs\master
-
--DEPLOYED SDDPU 5.8 trong NAV: nhoangphuc@host-10-107-10-144:~/code151/ee-environment/boxes$ common-box/nav-docker deploy sddpu.5.8 CFAS-H
- - copy file .jar vao thu muc deploy
-nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-yang-plugin/target$ docker cp anv-sddpu-cfas-h-yang-plugin-5.8-1-1.0.0-SNAPSHOT.jar anv-docker:/anv/anv-1.0.0-SNAPSHOT/deploy
--Xem plug deployed: docker exec -it anv-docker bash --> sau do vao ./bin/client (dung lenh list xem plug da dc deploy hay chua)
+DEPLOYED SDDPU 5.8 trong NAV: nhoangphuc@host-10-107-10-144:~/code151/ee-environment/boxes$ common-box/nav-docker deploy sddpu.5.8 CFAS-H
+Copy file .jar vao thu muc deploy: +nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-yang-plugin/target$ docker cp anv-sddpu-cfas-h-yang-plugin-5.8-1-1.0.0-SNAPSHOT.jar anv-docker:/anv/anv-1.0.0-SNAPSHOT/deploy
+Xem plug deployed: docker exec -it anv-docker bash --> sau do vao ./bin/client (dung lenh list xem plug da dc deploy hay chua)
 
 nhoangphuc@host-10-107-10-144:~/code151$  ee-environment/boxes/common-box/nav-docker console
 
 -Undeploy: nhoangphuc@host-10-107-10-144:~/code151/ee-environment/boxes$ common-box/nav-docker undeploy sddpu.5.8 CFAS-H
-
--Tunnel: 
-        -nhoangphuc@ser-95-212:~/axs/scripts/vmtools$ ./nav-tunnel 
-        --> xem Tunnel nhoangphuc@ser-95-212:~/axs/scripts/vmtools$ ./nav-tunnel show
-        - kill -9 propreess  
+=========================================================================================================================================================================================
+Tunnel: + nhoangphuc@ser-95-212:~/axs/scripts/vmtools$ ./nav-tunnel 
+        + xem Tunnel nhoangphuc@ser-95-212:~/axs/scripts/vmtools$ ./nav-tunnel show
+        + kill -9 propreess  
             
--Search in linux:  grep -rnw . -e "letter"
+Search in linux:  grep -rnw . -e "letter"
 
--Annotation in Nav:                         
+Annotation in Nav:                         
                    + nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/src/main/resources/annotations$ 
                    + All Yang: nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/src/main/resources/variants/CFAS-H/allyang$ 
                    
--Kiem tra simulator xem co enable featur chua: 
-                                              + nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-simulator/src/main/resources$ vim simulator-application-context.xml
+Kiem tra simulator xem co enable featur chua:+ nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/CFAS-H/anv-sddpu-cfas-h-simulator/src/main/resources$ vim simulator-application-context.xml
                                               
--Xem file html:
-                + http://tiger.in.alcatel-lucent.com:8090/pages/viewpage.action?pageId=88313117&preview=/88313117/88313024/SDDPU58_108.html#AXSREQ-4730-[plug][AV-A]SupportAMS9.6.05+AV1.5.0+ISAMR5.8-NTPconfiguration(/system/ntp)
+Xem file html: http://tiger.in.alcatel-lucent.com:8090/pages/viewpage.action?pageId=88313117&preview=/88313117/88313024/SDDPU58_108.html#AXSREQ-4730-[plug][AV-A]SupportAMS9.6.05+AV1.5.0+ISAMR5.8-NTPconfiguration(/system/ntp)
        
-- Cai dat bien moi truong: 
-                          +  alias ALL_YANG= "cd link"
-                                              
-- ALL_YANG, Annotation, Simulator
-                                              
+Cai dat bien moi truong: alias ALL_YANG= "cd link"
+                                                                                          
  ./ee-environment/boxes/common-box/anvGit sudo mvn docker:build -do
-
- 
  sudo mvn docker:build
  anvGit build -do
- 
- ***************
- Z:\axs\scripts\deploy
- <plugin name="spfeSddpu56">
-        <component name="app" path="spfe.app/plugins/spfe.app.plugins.sddpu.5.6/server"  />
-    </plugin>
-    
-    
-    deploy.sh p=spfeSddpu56
     
 Z:\axs\branch9607\basic.app\package\target\ams-9.6.07-SNAPSHOT\server\wildfly\server\all\deploy
 
 nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/target/generated-resources/workspace/yangintegrated$ 
-
+======================================================================================================================================================================
 sysctl -w vm.max_map_count=262144 : khi loi second giay
 
 sudo npm install --global yarn@1.7.0
@@ -158,16 +141,14 @@ info If you think this is a bug, please open a bug report with the information p
         + http-proxy=http://192.168.107.50:9898/
         + https-proxy=http://10.10.10.10:8080 
         
-- config docker proxy: vim /etc/default/docker
+Config docker proxy: vim /etc/default/docker
 nhoangphuc@host-10-107-10-144:~/code151new/ee-environment/boxes/common-box$ ./nav-sim sddpu.5.8 CFAS-H
-
--diag
 
 -git apply --stat patch_final
 
--git reset HEAD~;
--git remote -v
--git remote set-url origin ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ANVAutomation (fetch) 
+git reset HEAD~;
+git remote -v
+git remote set-url origin ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ANVAutomation (fetch) 
 
 If you want remove all local changes from your working copy, simply stash them:
 
@@ -181,7 +162,6 @@ fix version NAC:
             + rm /usr/local/bin/docker-compose
             + sudo curl -L "<https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)>" -o /usr/local/bin/docker-compose
             + chmod +x /usr/local/bin/docker-compose
-
 ==========================================================================================================================================================================
 helm: 
     + cd /tmp
@@ -196,13 +176,11 @@ Ignorre: X:\AC\deployment
 ======================================================================================================================================================================
 utc> package
 mvn clean install docker:build 
-
 dung ngay thu muc code: find . -name yarn.lock -print0 | xargs -0 rm
 ======================================================================================================================================================================
  Error: ENOENT: no such file or directory, scandir '/home/nhoangphuc/AC/controller-platform/ibn-web-app/src/main/webapp/node_modules/node-sass/vendor'
 Warning: Task "sass" failed. Use --force to continue.
-
-<execution>
+                    <execution>
                         <id>exec-node-sass-build</id>
                         <phase>process-classes</phase>
                         <configuration>

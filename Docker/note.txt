@@ -34,3 +34,25 @@ STATUS Exited: (search docker.com document )
     + 130 : ctrt C or ctrt D 
     + 125 : docker branch error
     + 126 : comnad not run
+=================================================================================================================================
+docker run -ti --rm ubuntu sleep 3: ko luu lai container khi dung, container se tu dong xoa sau 3s
+docker run -ti ubuntu bash -c "sleep 3, echo job finished" : hien thong bao ra man hinh
+docker run -ti -d ubuntu : -d chay ngam
+docker attach ten.image: Truy cap contain dang chay thong qua ID hoac ten
+                        + Truy cap vao cung mot container tu nhieu noi tai cung mot thoi diem
+                        + Ctrl-P/ Ctrl-Q de ra khoi container va de tien trinh van dang chay
+Docker exec:  khoi tao mot process khac ben trong container da co
+            + Tien loi cho viec debug va quan ly databse
+            + Khong the them port, volume, ..
+docker exec -ti ten.image bash: vao image (se luu lai tai container)
+Docker create : tao mot container voi cac config tuong tu docker run
+              + Contaniner khong duoc chay ngay tu dau
+              + Dung lenh docker start de chya container
+docker restart id.container    
+docker inspect : Kiem tra thiet lap cua Docker
+               + docker inspect id.container | grep "key need find"
+docker logs name.container              
+ docker kill [option] container: dung container              
+               
+               
+               
