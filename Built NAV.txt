@@ -1,5 +1,6 @@
 check out code: http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
 git clone ssh://aquocvo@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
+git clone ssh://tngocngu@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
 kbhatk@host-135-249-45-170:~/code2$ cd ee-environment
 kbhatk@host-135-249-45-170:~/code2/ee-environment$ git checkout 1.6.0-int
 ./ee-environment/boxes/common-box/anvGit nac clone checkout 1.6.0-int
@@ -29,6 +30,11 @@ bower install --force-latest
 cd %CODE%\anv\nav-device-manager\src\main\webapp
 bower install --force-latest
 =========================================================================================================================================================================================
+requirement: yarn 1.7.0
+            - pyang 1.7.3 (pip 18.0)
+            - pip 8.1.2
+            - comment (-von, - vnproxy, deployment: helm)
+
 Build code:
         + TRUNK CODE: ./ee-environment/boxes/common-box/anvGit build -DskipTests=true m2clean nosonar
         + mvn clean install -Dtest -DfailIfNoTests=false
@@ -39,6 +45,8 @@ Buil docker:
         + ee-environment/boxes/common-box/anvGit build -sd ee-environment/boxes/common-box/dockers.txt
         + ee-environment/boxes/common-box$ ./nacLatest 
         + docker-compose -f av_ac_setup_latest.yml up (trunK : local/nac-docker)
+        + docker build . (file focker)
+        + mvn docker:build
 View NAC: docker exec -ti nac bash
           + ./bin/client
 Error exit container: docker stop $(docker ps -aq)
@@ -60,12 +68,37 @@ ReStart Docker:
 Kiem tra file Top-pom anv:
         + cd fnms-root-pom/
         + git pull
+Deploy NAV: AC/anv-sdolt.18B.09/anv-sdolt-yang-plugin/target$ docker cp .jaz anv-docker:/base-platform-image/base-platform-image-1.0.0-SNAPSHOT/deploy/
+
+Uninstall Docker:
+            + sudo apt-get purge docker-engine
+            + sudo apt-get autoremove --purge docker-engine
+            + rm -rf /var/lib/docker
+Error docker.sock: sudo setfacl -m user:nhoangphuc:rw /var/run/docker.sock
+
+sudo apt-get install docker-ce=17.09.0~ce-0~ubuntu
+curl -sSL https://get.docker.com/ | sh
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+
+Error IP: chinh Ip 113
+
+Kill Intellij: killall java -9 
+
 =========================================================================================================================================================================================     
 Eorror: __init__
 Pip:
+  1/
   + sudo apt-get remove python-pip python3-pip
   + Uninstall : sudo pip uninstall pip
   + Install pip: sudo apt install python-pip
+  
+  2/
+  + dowload .tag
+  + tar -xzvf pip-8.1.2.tar.gz
+  + cd pip-8.1.2
+  + sudo python setup.py install
+  
   pip install ruamel.yaml
 =========================================================================================================================================================================================
 Artifact
@@ -125,12 +158,27 @@ Z:\axs\branch9607\basic.app\package\target\ams-9.6.07-SNAPSHOT\server\wildfly\se
 
 nhoangphuc@host-10-107-10-144:~/code151/anv-sddpu.5.8/anv-sddpu-yang-modules/target/generated-resources/workspace/yangintegrated$ 
 ======================================================================================================================================================================
-sysctl -w vm.max_map_count=262144 : khi loi second giay
+sudo sysctl -w vm.max_map_count=262144 : khi loi second giay
 
 sudo npm install --global yarn@1.7.0
 sudo apt update && sudo apt install yarn -y
 
 install yarn: https://www.codehub.vn/Huong-Dan-Cai-Dat-va-Su-Dung-Yarn-Package-Manager
+
+-error An unexpected error occurred: "Unknown token: { line: 7, col: 42, type: 'BOOLEAN', value: true } 7:42 in /home/nhoangphuc/.yarnrc".
+info If you think this is a bug, please open a bug report with the information provided in "/home/nhoangphuc/code/base-platform/stack/nc-browser-web-app/src/main/webapp/yarn-error.log".
+
+registry "http://135.249.45.113:8081/artifactory/api/npm/npm-virtual/"
+https-proxy "http://192.168.72.112:8090"
+lastUpdateCheck 1533267633161
+proxy "http://192.168.72.112:8090"
+
+At cd: vim .npmrc
+ + proxy=http://192.168.72.90:9877/
+ + https-proxy=http://192.168.72.90:9877/ 
+ + registry "http://135.249.45.113:8081/artifactory/api/npm/npm-virtual/"
+-----------
+
 
 -error An unexpected error occurred: "https://registry.yarnpkg.com/ams-dynamic-locale: unable to verify the first certificate".
 info If you think this is a bug, please open a bug report with the information provided in "/home/nhoangphuc/code151new/base-platform/stack/nc-browser-web-app/src/main/webapp/yarn-error.log".
@@ -157,6 +205,7 @@ If you don't need them anymore, you now can drop that stash:
 
 pip uninstall pyang
 git stash drop
+pip install pyang==1.7.3
 ==============================================================================================================================================================
 fix version NAC:
             + rm /usr/local/bin/docker-compose
@@ -195,6 +244,66 @@ Warning: Task "sass" failed. Use --force to continue.
                             <goal>exec</goal>
                         </goals>
                     </execution>
+                    
+docker: Error response from daemon: Get https://135.249.45.113:9000/v2/: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers).:
+    +
 ======================================================================================================================================================================                   
 sudo npm uninstall npm -g
 http://192.168.95.124:8181/login.html 
+
+Nghia0810@2018 
+===================================================================================================================
+[ERROR] Failed to execute goal com.spotify:docker-maven-plugin:0.4.3:build (default-cli) on project base-platform-image: Exception caught: Get https://135.249.45.113:9000/v2/: net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers) -> [Help 1]
+
+route -n
+sudo route add -net 135.249.0.0/16 gw 192.168.95.251
+=========================================================================================================================================================
+Noss-ass khong qua dc proxy:
+Using command:
+yarn config set proxy http://10.10.10.10:8080;
+yarn config set https-proxy http://10.10.10.10:8080;
+npm config set proxy http://10.10.10.10:8080;
+npm config set https-proxy http://10.10.10.10:8080;
+npm config set registry https://registry.npmjs.org/;
+yarn config set registry https://registry.yarnpkg.com;
+=============================================
+/etc/systemd/system/docker.service.d
+ sudo systemctl daemon-reload
+ sudo systemctl restart docker
+ systemctl show --property=Environment docker
+ 
+ docker rmi -f [xxx]
+  ps -ef | grep vnc
+===========================================================
+./ee-environment/boxes/common-box/anvGit syncUpdatesFromIntBranch 
+
+./ee-environment/boxes/common-box/anvGit createWorkBranch 
+convert in git: git checkout --f "link_file"
+git config --list
+Revert git:
+    + git reset --soft HEAD~1 
+git remote -v
+git remote set-url origin ssh://tngocngu@gerrit.ext.net.nokia.com:29418/FNMS/utc
+
+[‎2/‎19/‎2019 3:49 PM] Nguyen Minh Nghia: 
+·  Merge changes to master:  
+./ee-environment/boxes/common-box/anvGit deliverContentToIntBranch master  
+Resolve conflicts if any, properly. 
+·  Build, etc.  
+·  Commit and push the changes to master.  
+·  Monitor the build in Jenkins to make sure. 
+
+Error: Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	et --soft HEAD~1
+    fix: git clean --force
+=================================================================================================
+docker pull 135.249.45.113:9000/non-coded-simulator:19.3-SNAPSHOT_2428
+
+~./duong dan file Zip
+===================================================
+-(IP 70.1.1.101)kafka
+- vonuproxy  and vonumgmt and NAV_CALLHOME_TLS_PRIV_KEY_PATH is changed SNAPSHOT
+======================================================
+find . -type f | grep -v target | xargs grep "<exportInterval>60</exportInterval>" | sort 

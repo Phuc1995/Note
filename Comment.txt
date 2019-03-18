@@ -1,7 +1,25 @@
 See attachments for verification.
-A snapshot showing the same is attached. 
+A snapshot showing the same is attached.
+This alone is way to often for a production deployment
+with what is configured by
+As per discussion 
+ This defeats the purpose of 
+Are we able to scale a large system with this value of 1 min?
+I can agree to increase the periodicity for  
+You can use the attached file for DLTCs excels if you don’t have one 
+ ,is there any mistake?
+ close review and merge changes with master for
+ is a fully valid value
+ What, is something wrong?
+ What would be better to show is the actual active 
+ That makes sense to me: Điều đó có ý nghĩa với tôi.
+  It's been a while since we last saw each other: Lâu lắm rồi chúng ta mới gặp nhau
+  Write me back as soon as possible : Viết lại cho tôi càng sớm càng tốt
+   And by the way: nhân tiện
+   Thanks for coming to the coffee
 
--reproduce: tai san suat
 -sceenshoot
 
 I'm also getting the same error in running
+That being said
+it's such an exciting job

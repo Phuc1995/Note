@@ -1,8 +1,0 @@
--Obiect:
-         + Z:\branch9607\anv.app\plugins\anv.app.plugins.sddpu.5.8\axs-sddpu-genmodel-plugin\src\main\resources\objects.xml
-        
--Meta.xml:
-        + Z:\branch9607\anv.app\plugins\anv.app.plugins.sddpu.5.6\axs-sddpu-genmodel-plugin\target\classes\metadata\nemodel\SDDPU\5\6\meta.xml
-
--Message.propeties:
-        + Z:\branch9607\anv.app\plugins\anv.app.plugins.sddpu.5.8\axs-sddpu-genmodel-plugin\target\classes\metadata\nemodel\SDDPU\5\8\messages.properties

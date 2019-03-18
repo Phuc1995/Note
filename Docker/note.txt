@@ -52,7 +52,10 @@ docker restart id.container
 docker inspect : Kiem tra thiet lap cua Docker
                + docker inspect id.container | grep "key need find"
 docker logs name.container              
- docker kill [option] container: dung container              
+docker kill [option] container: dung container
+docker run --memory <total-memory-limit> <image> <command> : limit memory
+docker run --cpu-shares = <limit><image><command> : gioi han tuong doi
+docker run --cpu-period=<period-limit>
                
                
                

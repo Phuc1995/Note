@@ -1,6 +1,0 @@
-1. stopdb.sh
-2. startdb.sh 9605
-
-Z:\axs\branch9605\basic.app\package\target\ams-9.6.05-SNAPSHOT\server\wildfly\standalone\configuration
--->file config.xml
-

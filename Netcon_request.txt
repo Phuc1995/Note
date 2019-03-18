@@ -1,0 +1,87 @@
+- aAdd manager content:
+    
+<rpc message-id="1" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+
+  <edit-config>
+
+    <target>
+
+      <running/>
+
+    </target>
+
+    <config>
+
+      <mds:manager-directory xmlns:mds="http://www.nokia.com/management-solutions/manager-directory-service">
+
+        <mds:manager-info xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+
+          <mds:name>NAV_1</mds:name>
+
+          <mds:ip>192.168.95.124</mds:ip>
+
+          <mds:port>9181</mds:port>
+
+          <mds:manager-type>NAV</mds:manager-type>
+
+          <mds:netconf-port>6515</mds:netconf-port>
+
+          <mds:max-connections>4</mds:max-connections>
+
+          <mds:user-name>adminuser</mds:user-name>
+
+          <mds:password>password</mds:password>
+
+          <mds:poll-interval>180</mds:poll-interval>
+
+          <mds:poll-start-time>30</mds:poll-start-time>
+
+        </mds:manager-info>
+
+      </mds:manager-directory>
+
+    </config>
+
+  </edit-config>
+
+</rpc>
+
+
+
+-Sync manager content:
+
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="245d6b4f-f201-11e6-a9ea-c4d987a1d3fc">
+
+  <mds:sync-all xmlns:mds="http://www.nokia.com/management-solutions/manager-directory-service">
+
+    <mds:caller-name>Hoa</mds:caller-name>
+
+  </mds:sync-all>
+
+</rpc>
+
+
+-Get managers content:
+
+<rpc message-id="1" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+
+<get xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+
+  <filter type="subtree">
+
+  <mds:manager-directory xmlns:mds="http://www.nokia.com/management-solutions/manager-directory-service">
+
+        <mds:manager-info xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" >
+
+        </mds:manager-info>
+
+      </mds:manager-directory>
+
+      </filter>
+
+</get>
+
+</rpc>
+
+
+

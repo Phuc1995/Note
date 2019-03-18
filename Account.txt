@@ -1,0 +1,11 @@
+Full Name: Nguyen Ngoc That
+CSL: tngocngu
+CIL: that ngoc nguyen
+TMA mail ID: nnthat@tma.com.vn
+Nokia mail ID: that.ngoc_nguyen.ext@nokia.com
+Pass: Nokia-123
+
+Thất do Phương Lê train và mentor 
+Phuong Le la team cua Cam
+
+Intents_should_match_IPFIX_periodicity_to_the_one_specified_in_PM_Model

@@ -1,0 +1,3 @@
+import intent: utc\blueprints\intents\sdolt-infra-ont\target --> choice file .zip
+
+    <collectedCounters>

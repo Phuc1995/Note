@@ -10,3 +10,8 @@ Ingress and Egress QoS profile attributes needs to be removed from ISAM NCY Netw
 http://tiger.in.alcatel-lucent.com:8060/cru/APC9605-450#objectives
 
 jira FNMS-12906: Improve UT coverage on  ISAM NAV Fwk
+
+git commit -m "jira FNMS-37897: Intents should match IPFIX periodicity to the one specified in PM Model "
+FNMS-37897-Intents_should_match_IPFIX_periodicity_in_PM_Model
+
+Hide_the_MAC_Learning_Control_Profile_from_Forwarder_table
