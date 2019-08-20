@@ -1,4 +1,0 @@
-F5: nhay vao code lenh
-F6: nhay qua lenh ke tiep
-F7: quay lai
-F8: nhay toi Breakpoint

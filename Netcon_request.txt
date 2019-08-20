@@ -18,15 +18,15 @@
 
           <mds:name>NAV_1</mds:name>
 
-          <mds:ip>192.168.95.124</mds:ip>
+          <mds:ip>10.131.228.138</mds:ip>
 
-          <mds:port>9181</mds:port>
+          <mds:port>30091</mds:port>
 
           <mds:manager-type>NAV</mds:manager-type>
 
-          <mds:netconf-port>6515</mds:netconf-port>
+          <mds:netconf-port>30075</mds:netconf-port>
 
-          <mds:max-connections>4</mds:max-connections>
+          <mds:max-connections>20</mds:max-connections>
 
           <mds:user-name>adminuser</mds:user-name>
 
@@ -54,8 +54,6 @@
 
   <mds:sync-all xmlns:mds="http://www.nokia.com/management-solutions/manager-directory-service">
 
-    <mds:caller-name>Hoa</mds:caller-name>
-
   </mds:sync-all>
 
 </rpc>
@@ -80,6 +78,18 @@
       </filter>
 
 </get>
+
+</rpc>
+
+
+
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="10">
+
+    <mds:sync-all xmlns:mds="http://www.nokia.com/management-solutions/manager-directory-service">
+
+        <mds:caller-name>NAC</mds:caller-name>
+
+    </mds:sync-all>
 
 </rpc>
 

@@ -1,6 +1,0 @@
--Gia tri None va noe:
-                    + <transformer strategy="LinkAttributeValueTransformerWithDefaultNone" resolver="IsamAnvSddpuNameToIdResolverWithDefaultValue" resolverType="threshold-template_thresholds_fast" resolverName="name" >
-                    <transformerDefaultValue constructorParameterValue="/linkSpecialValue=None" userParameterClass="java.lang.String" />
-                    </transformer>
-                    
-                    

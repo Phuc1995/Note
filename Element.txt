@@ -1,8 +1,0 @@
-GUI:
- NetworkSubInterface 
-AbstractSubInterface 
-
-xml:
-AbstractSubInterfaceConfigurator_interface_interfaces
-SubscriberSubInterfaceConfigurator_interface_interfaces
-NetworkSubInterfaceConfigurator_interface_interfaces

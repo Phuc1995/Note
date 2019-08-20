@@ -1,0 +1,18 @@
+
+
+1) device-configuration
+
+2) xpon-global-infra
+
+3) xpon-infra-fiber
+
+4) slice-owner
+
+5) xpon-infra-olt-slice
+
+6) xpon-infra-fiber-slice
+
+7) xpon-infra-ont-connection
+
+
+
