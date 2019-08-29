@@ -1,7 +1,0 @@
--Loi enum:
-         + Z:\branch9607\apc.app\plugins\apc.app.plugins.fwk\configuratorschema\src\main\resources configurator.xsd--> sua loi enum
-         
--Bat Debug:
-          + Z:\branch9607\apc.app\plugins\apc.app.plugins.fwk\common\src\test\resources --> testApcApplicationContext.xml
-          + <bean name="isDevEnvironment" class="java.lang.Boolean">
-        <constructor-arg value="true" type="java.lang.String" /> </bean>

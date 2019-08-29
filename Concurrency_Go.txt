@@ -1,0 +1,6 @@
+Measure the amount of memory:
+		runtime.GC()
+		var s runtime.MemStats
+		runtime.ReadMemStats(&s)
+		return s.Sys
+        
