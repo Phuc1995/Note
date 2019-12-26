@@ -1,3 +1,8 @@
+[name] AC
+BUG (loai ticket bug hay enviroment issue : ENV)
+FNMS-45279 ID
+Flaky PONID ATs  : nguyen nhan
+
 check out code: http://tiger.in.alcatel-lucent.com:8090/display/EPG/Setup+Development+Environment#SetupDevelopmentEnvironment-PushingchangestoRemoteRepoUsingSafePush
 git clone ssh://tngocngu@gerrit.ext.net.nokia.com:29418/FNMS/ee-environment
 kbhatk@host-135-249-45-170:~/code2$ cd ee-environment
@@ -149,7 +154,8 @@ info If you think this is a bug, please open a bug report with the information p
 Config docker proxy: vim /etc/default/docker
 nhoangphuc@host-10-107-10-144:~/code151new/ee-environment/boxes/common-box$ ./nav-sim sddpu.5.8 CFAS-H
 
--git apply --stat patch_final
+git apply --stat patch_final
+git diff > mypatch.patch
 
 git reset HEAD~;
 git remote -v
@@ -279,8 +285,11 @@ find . -type f | grep -v target | xargs grep "<exportInterval>60</exportInterval
  SDOLT iso LS-CF, SDFX iso LS-FX, SDDPU iso LS-DPU
  
  non-coded-sim start  --offset=1 ~/Device-extension/device-extension_LS-DPU-CFAS-H_19A.03_127.zip -d
+ non-coded-sim start
 
  ===========================================================================================================
+ sudo reboot
+ 
  http://tiger.in.alcatel-lucent.com:8090/display/~chungpha/K8S+Setup+and+Running+Atiplano
  http://tiger.in.alcatel-lucent.com:8090/display/EPG/Steps+to+bring+up+the+AC+setup+using+k8s
  sudo minikube delete && minikube start
@@ -291,6 +300,8 @@ sudo kubectl -n kube-system get po
 sudo kubectl -n kube-system delete po tiller-deploy-c48485567-5h282
 kubectl get pods
 kubectl delete pod nokia-altiplano-ac-0
+automation-altiplano-redis-pre-delete
+kubectl delete job automation-altiplano-redis-pre-delete
 
 $minikube stop
 $minikube delete && rm -rf ~/.minikube && rm -rf ~/.kube
@@ -373,3 +384,7 @@ kubectl delete node --all
 http://10.131.226.88:30071/login.html
 
 https://nokiameetings.webex.com/mw3300/mywebex/default.do?service=1&main_url=/mc3300/e.do?siteurl%3Dnokiameetings%26AT%3DMI%26EventID%3D770882597%26MTID%3Dmd14ca4a842c39cad4fe1a546fa13eb53%26Host%3DQUhTSwAAAATTZNbDw6656CdriQCe6FduediSQXGl3ariFRaDX6MjAndCMVlGgNlTdIeclXkzYUrOW4q7XmgdxGSOc5btZF9i0%26FrameSet%3D2&siteurl=nokiameetings&nomenu=true
+
+git reset HEAD^
+git checkout .
+==========================================================================

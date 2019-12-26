@@ -1,0 +1,560 @@
+templates:
+  requestResponses:
+    PMA:
+      request: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/PmaRequests.yml
+      response: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/responses/PmaResponses.yml
+    DPU:
+      request: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/DpuRequests.yml
+    NETCONF:
+      request:
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/NetconfRequests.yml
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/Intent_NetconfRequests.yml
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/License_NetconfRequests.yml
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/Mds_NetconfRequests.yml
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/Mobility_NetconfRequests.yml
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/NV_NetconfRequests.yml
+        - src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/requests/Policy_NetconfRequests.yml
+      response: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/responses/NetconfResponses.yml
+
+pvc_configs:
+  altiplano-volumeclaims:
+    createDirectoryStructure: pvhelpers/createLocalDirectoryStructure.sh
+    create_pvs: pvhelpers/altiplano-pvs-hostpath.yaml
+    dataSource: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_PERSISTED_DATA.sh
+  altiplano-simulatorvolumeclaims:
+    createDirectoryStructure: pvhelpers/createLocalDirectoryStructure.sh
+    create_pvs: pvhelpers/altiplano-simulator-pvs-hostpath.yaml
+    dataSource:
+altiplano:
+  common_values: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_COMMON_VALUES.yaml
+  umbrella_charts: altiplano-solution
+  default:
+      release: automation
+      values: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_OVERRIDE_VALUES_DEFAULT.yaml
+  system_test:
+      nsp: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_OVERRIDE_VALUES_NSP_TEST.yaml
+      high_availability: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_OVERRIDE_VALUES_HA_TEST.yaml
+      ams: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_OVERRIDE_VALUES_AMS_TEST.yaml
+      ams_sdc: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_OVERRIDE_VALUES_AMS_SDC_TEST.yaml
+      migration: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/ALTIPLANO_OVERRIDE_VALUES_MIGRATION_TEST.yaml
+simulators:
+  common_values: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/SIMULATORS_COMMON_VALUES.yaml
+  umbrella_charts: altiplano-simulatorgroup
+  default:
+      values: src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/setup/SIMULATORS_OVERRIDE_VALUES_DEFAULT.yaml
+
+general:
+  kibana:
+      container_name: kibana
+      image_name: elk_k
+      tag_name: 6.5.4-19.03.01
+      version: 5.2.1
+      port: 30056
+  fluent:
+      container_name: fnms-fluent
+      image_name: fnms-fluent
+  elasticsearch:
+      container_name: elasticsearch
+      image_name: elk_e
+      chart_name: altiplano-elasticsearch
+      tag_name: 6.5.4-19.01.0
+      port: 30092
+  opentsdb:
+      container_name: fnms-opentsdb
+      image_name: fnms-opentsdb
+      port: 30044
+  mariadb:
+      container_name: fnms-mariadb
+      image_name: fnms-mariadb
+      port: 30033
+      default: 3306
+      username: root
+      password: mysql
+  kafka:
+      container_name: kafka
+      image_name: ckaf-kafka
+      port: 30099
+      tag_name: 18.3-20180320031806
+  zookeeper:
+      container_name: zookeeper
+      image_name: ckaf-zookeeper
+      port: 30021
+      tag_name: 18.3-20180320031806
+  default_port:
+      web: 8181
+      netconf_server: 6514
+      tls: 6513
+  topics:
+      collection: NAC
+  server:
+      AT_username: fnmst001
+      AT_password: welcome
+  license_version: 1.6
+  webdav:
+      container_name: fnms-file-server
+      image_name: fnms-file-server
+      port: 30080
+      cert: nginx-proxy.crt
+      key: nginx-proxy.key
+  keycloak:
+    keycloak_url: https://keycloak:8443
+    keycloak_trust_store_password: keycloak
+    image_name: fnms-keycloak
+  grafana:
+    image_name: fnms-grafana
+    tag_name: nokia-1.1.1
+    port: 30030
+  nginx_proxy:
+    container_name: nginx-proxy
+    image_name: fnms-nginx-proxy
+    port: 443
+
+anv:
+  container_name: anv-docker
+  image_name: anv
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20
+    user_name: adminuser
+    password: password
+    port: 30075
+    rmi_node_port: 30513
+    tls_port: 30053
+  web_port: 30091
+  web_port_https: 30084
+  web_protocol: http
+  nonref_plugs:
+    device-extension-ls-cf-24w-yang-plugin:
+      - 18b.12-1
+  plugs:
+  #Character * use to replace device build number in keyword.
+  noncode_plugs:
+    - device-extension-ls-dpu-cfas-h-19A.06-*
+    - device-extension-ls-cf-24w-19A.06-*
+    - device-extension-vonu-19a.06-1
+  manager_type: NAV    
+  security:
+    keycloak_url: https://keycloak:8443
+    keycloak_admin_user: admin
+    keycloak_admin_password: admin
+    keycloak_trust_store_password: keycloak
+    cert_dir: ~/key-store/keycloak/ssl-certs
+    server_keystore: keycloak.jks
+  
+nac:
+  container_name: nac
+  image_name: nac
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20 
+    user_name: adminuser
+    password: password
+    port: 30055
+    rmi_node_port: 30072
+  web_port: 30071
+  web_port_https: 30074
+  web_protocol: http
+  ams_name: AMS_TEST
+  ams_manager_type: AMS
+  mds_global_poll_interval: 3600
+  current_release: 1.6.0
+
+ams:
+  protocol: https
+  port: 8443
+
+oad2kafka:
+  container_name: oad2kafka
+  image_name: oad2kafka
+  rmi_node_port: 30518
+  rmi_port: 2299
+  keystore: keystore
+  keypass: +v9pMsoaFJig2h0fj/e+sQ==
+  subscriber_name: oadUser
+  subscriber_password: 123456
+  subscription_id_prefix: OAD_ClientID
+  kafka_topic_prefix: OAD2Kafka
+  topic: Fault
+  heart_beat_interval: 30
+  reconnect_backoff_time: 60
+  ams_reconnect_backoff_time: 5
+  max_clients: 32
+  user_name: DPU
+  password: DPU
+
+alarm_es_bridge:
+  container_name: alarm-es-bridge
+  image_name: alarm-es-bridge
+  rmi_port: 2299
+  netconf_server:
+    user_name: DPU
+    password: DPU
+
+
+nc_live_collector:
+  container_name: nc-live-collector-nac
+  image_name: nc-live-collector
+  rmi_port: 2299
+  netconf_server:
+    rmi_node_port: 30517
+    user_name: DPU
+    password: DPU
+
+tca_calculator_altiplano:
+  container_name: tca-calculator-altiplano
+  image_name: tca-calculator
+  rmi_port: 2299
+  netconf_server:
+    rmi_node_port: 31101
+    user_name: DPU
+    password: DPU
+
+health_calculator:
+  container_name: health-calculator
+  image_name: pm-health-calculator
+  rmi_port: 2299
+  netconf_server:
+    rmi_node_port: 31100
+    user_name: DPU
+    password: DPU
+
+snmp_live_collector:
+  container_name: snmp-live-collector
+  image_name: snmp-live-collector
+  rmi_port: 2299
+  netconf_server:
+    rmi_node_port: 31099
+    user_name: DPU
+    password: DPU
+
+sdc_collector:
+  rmi_port: 2299
+  container_name: sdc-collector
+  image_name: pm-sdc-collector
+
+ipfixFE:
+  image_name: ipfix-frontend-collector
+  container_name: ipfix-frontend-collector
+  rmi_port: 2299
+  port: 30494
+  username: adminuser
+  password: password
+
+ipfixBE:
+    image_name: ipfix-backend-collector
+    container_name: ipfix-backend-collector
+    rmi_port: 2299
+
+nspmediator:
+  image_name: nsp-mediator
+  container_name: nsp-mediator
+  port: 30051
+  rmi_port: 2299
+  nsp_name: NSP1
+  nsp_user: admin
+  nsp_password: NokiaNsp1!
+  ip: 10.131.228.212
+  nsp_url: https://10.131.228.212
+  nsp_nfmp_url: https://10.131.228.212:8443
+  nsp_kafka_bootstrap: 10.131.228.212:9093
+
+ls-dpu:
+  container_name: ls-dpu-cfas-h-simulator
+  image_name: non-coded-simulator
+  container_configs:
+      log_dir: /simulator/ls-dpu-cfas-h-simulator-current/logs/
+      extras_dir: /data/extras
+      noncoded_dir: /non-coded-plug-files
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20
+    password: DPU
+    port: 32500
+    user_name: DPU
+    rmi_node_port: 30272
+  certificates:
+    tls_trust: rootCA.pem
+    tls_certificate: sim.crt
+    tls_trust_privatekey: rootCA.key
+    tls_privatekey: simPK.pem
+  variant_name: cfas-h
+  management_port: 30240
+  plug_version: 1
+  interface_version: 19a.06
+  device_interface_version: 19A.06
+  circuit_id_prefix: LS-DPU
+  instance_count: 5
+  device_type: LS-DPU-CFAS-H
+  ev_model_name: copper-18B.12
+  plug_type: ls-dpu-cfas-h
+  blueprints_name: blueprint-downloader-ls-dpu-cfas-h
+  device_build: 373
+
+ls-cf-24w:
+  container_name: ls-cf-24w-simulator
+  image_name: non-coded-simulator
+  container_configs:
+    log_dir: /simulator/ls-cf-24w-simulator-current/logs/
+    extras_dir: /data/extras
+    noncoded_dir: /non-coded-plug-files
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20
+    password: DPU
+    port: 32510
+    user_name: DPU
+    rmi_node_port: 30273
+  certificates:
+    tls_trust: rootCA.pem
+    tls_certificate: sim.crt
+    tls_trust_privatekey: rootCA.key
+    tls_privatekey: simPK.pem
+  management_port: 30241
+  plug_version: 1
+  interface_version: 19a.06
+  device_interface_version: 19A.06
+  circuit_id_prefix: LS-CF-24W
+  instance_count: 5
+  device_type: LS-CF-24W
+  ev_model_name: ls-cf-19A.03
+  plug_type: ls-cf-24w
+  blueprints_name: blueprint-downloader-ls-cf-24w
+  device_build: 373
+
+ls-df-16gw:
+  container_name: ls-df-16gw-simulator
+  image_name: non-coded-simulator
+  container_configs:
+    log_dir: /simulator/ls-df-16gw-simulator-current/logs/
+    extras_dir: /data/extras
+    noncoded_dir: /non-coded-plug-files
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20
+    password: DPU
+    port: 32510
+    user_name: DPU
+    rmi_node_port: 30273
+  certificates:
+    tls_trust: rootCA.pem
+    tls_certificate: sim.crt
+    tls_trust_privatekey: rootCA.key
+    tls_privatekey: simPK.pem
+  management_port: 30241
+  plug_version: 1
+  interface_version: 19b.09
+  device_interface_version: 19B.09
+  circuit_id_prefix: LS-DF-16GW
+  instance_count: 5
+  device_type: LS-DF-16GW
+  ev_model_name: ls-df-19B.09
+  plug_type: ls-df-16gw
+  blueprints_name: blueprint-downloader-ls-df-16gw
+  device_build: 373
+
+ls-fx:
+  container_name: ls-fx-fglt-b-simulator
+  image_name: non-coded-simulator
+  container_configs:
+      log_dir: /simulator/ls-fx-simulator-current/logs/
+      extras_dir: /data/extras
+      noncoded_dir: /non-coded-plug-files
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20
+    password: DPU
+    port: 32590
+    user_name: DPU
+    rmi_node_port: 30279
+  certificates:
+    tls_trust: rootCA.pem
+    tls_certificate: sim.crt
+    tls_trust_privatekey: rootCA.key
+    tls_privatekey: simPK.pem
+  variant_name: fglt-b
+  management_port: 30247
+  plug_version: 1
+  interface_version: 19a.06
+  device_interface_version: 19A.06
+  circuit_id_prefix: LS-FX
+  instance_count: 5
+  device_type: LS-FX-FGLT-B
+  plug_type: ls-fx-fglt-b
+  blueprints_name: blueprint-downloader-ls-fx-fglt-b
+  device_build: 373
+  
+vonu:
+  container_name: vonu-simulator
+  image_name: non-coded-simulator
+  container_configs:
+    extras_dir: /data/extras
+    noncoded_dir: /non-coded-plug-files
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 20
+    password: DPU
+    port: 32690
+    user_name: DPU
+    rmi_node_port: 30275
+  certificates:
+    tls_trust: rootCA.pem
+    tls_certificate: sim.crt
+    tls_trust_privatekey: rootCA.key
+    tls_privatekey: simPK.pem
+  management_port: 30243
+  plug_version: 1
+  interface_version: 19a.06
+  device_interface_version: 19A.06
+  circuit_id_prefix: VONU
+  instance_count: 5
+  device_type: VONU
+  plug_type: vonu
+  ev_model_name: vonu-18B.12
+  blueprints_name: blueprint-downloader-vonu
+
+vonuproxy:
+  container_name: vonuproxy
+  image_name: vonuproxy
+  port: 8801
+  rmi_port: 2299
+
+vonumgmt:
+  container_name: vonumgmt
+  image_name: vonumgmt
+  port: 8802
+  rmi_port: 2299
+
+isam:
+  interface_version_56: 5.6
+  interface_version_57: 5.7
+  interface_version_58: 5.8
+  interface_version: 6.1
+  plug_type: isam
+  device_type: iSAM
+  ev_model_name: iSAM
+  blueprints_name: blueprint-downloader-isam
+  intent_model: altiplano
+  real_device_ip:
+
+gfast:
+  container_name: gfast-simulator-5-devices
+  image_name: gfast-simulator-v2
+  yangPluginPath: /anv-gfast/anv-gfast-yang-plugin/target/anv-gfast-yang-plugin-*-SNAPSHOT.jar
+  container_configs:
+      extras_dir: /simulator/gfast-simulator-v2-current/extras/
+      log_dir: /simulator/gfast-simulator-v2-current/logs/
+  certificates:
+    tls_trust: rootCA1.crt
+    tls_certificate: device.crt
+    tls_trust_privatekey: rootCA1.pem
+    tls_privatekey: device.pem
+  rmi_port: 2299
+  management_port: 30249
+  netconf_server:
+    password: DPU
+    port: 32570
+    user_name: DPU
+    heart_beat_interval: 20
+    rmi_node_port: 30281
+  circuit_id_prefix: GFAST
+  instance_count: 5
+  hardware_type: G.FAST
+  interface_version: 1.0
+
+plug_type:
+    familyPlug: ls-dpu
+    nonFamilyPlug: ls-cf-24w
+
+onos:
+  password: karaf
+  rmi_port: 2299
+  http_port: 7171
+  username: karaf
+
+ftp:
+  password: admin
+  remotedir: /
+  port: 1212
+  username: admin
+    
+sftp:
+  password: admin
+  remotedir: /home/admin/upload
+  port: 2222
+  username: admin
+
+cfg_file:
+  cfg_file: org.ops4j.pax.url.mvn.cfg
+
+mediator:
+  container_configs:
+    log_dir: /anv-sdnmediator/anv-sdnmediator-package-1.0.0-SNAPSHOT/data/log/
+    etc_dir: /anv-sdnmediator/anv-sdnmediator-package-1.0.0-SNAPSHOT/etc/
+    tag: latest
+  rmi_port: 2299
+  netconf_server:
+    heart_beat_interval: 0
+    password: password
+    port: 7514
+    user_name: adminuser
+  certificates:
+    tls_trust: trustchain.crt
+    tls_client_cert: clientcert.crt
+    pma_pk: privatekey.pem
+
+selenium:
+  container_name: selenium-server
+  upload_file_dir: ~/Desktop/
+  download_file_dir: ~/automation_webapps/
+
+keycloak:
+  cert_dir: ~/key-store/keycloak/ssl-certs
+  server_keystore: keycloak.jks  
+  port: 30844
+
+docker_config:
+    reponame: libs-snapshot-local
+    keycloak_version: 'nokia-1.1.23'
+    mariadb_version: 'nokia-1.1.7'
+    fluentd_version: 'nokia-1.3.1'
+    opentsdb_version: 'nokia-1.2.0'
+    fileserver_version: 'nokia-1.1.3'
+    nginx_proxy_version: 'nokia-1.1.11'
+    ftpserver_version: 'nokia-1.1.0'
+    sftpserver_version: 'nokia-1.1.0'
+    fluentd_index_name: 'logstash'
+    proxyPort: 8000
+    plugs_repo: libs-candidate-release
+    proxyServerName: global.proxy.alcatel-lucent.com
+    common_plug_version: SNAPSHOT
+    nav_images_tag:
+    container_root_dir: >
+                anv-docker=/anv/anv-current/,
+                gfast-simulator-5-devices=/simulator/gfast-simulator-v2-current/,
+                sx16f-simulator-5-devices-${env.getValue("sx16f.interface_version")}-${env.getValue("sx16f.plug_version")}=/simulator/sx16f-simulator-v2-current/,
+                ls-cf-24w-simulator=/simulator/ls-cf-24w-simulator-current/,
+                anv-sdnmediator=/anv-sdnmediator/anv-sdnmediator-package-current/
+
+browser:
+  type: firefox
+
+rest:
+  protocolType:
+    http:  http
+    https:  https
+  http_port:  30071
+  https_port:  30074
+  proxyPort:  8000
+  proxyServer: ''
+  auth: FORM_BASED
+  app: ''
+  user: adminuser
+  password: password
+  object: /src/test/robotframework/acceptance/tests/testManagement/resources/testdata/data/EPG/AC/rest/Rest.yml
+  representation: json
+
+metrotelIntents:
+  neSlotNumber: LT1
+  ontCardNumber: 1
+  ponPortNumber: 1
+  ethenetPortNumber: 1

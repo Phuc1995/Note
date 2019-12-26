@@ -1,0 +1,221 @@
+19.9.0-SNAPSHOT_6023
+--duidprefix=
+
+---------------------------------------------------------
+device-dpu comment
+preReqs.txt-->pc Setup Altiplano Migration
+Teardown --> fc Cleanup Intents And Devices Without Intent
+-----------------------------------------------------------------
+mvn clean install robotframework:run -Duname=tngocngu -Dpassword=welcome -Dip=80.1.0.141 -DdeploymentType=pipeline -DsiteName=Bangalore-Cloud2 -Dapp.name=AC -Djava.security.egd=file:/dev/./urandom -Danv.controller.navip=80.1.0.141 -Ddocker_config.es_ip=80.1.0.141 -Ddocker_config.artifactory_url=10.131.225.254:9000 -Ddocker_config.mavenrepo=http://10.131.225.254/artifactory/libs-candidate-release@id=internal@snapshots -Ddocker_config.common_images_tag=19.9.0-SNAPSHOT_6061-Ddocker_config.nav_images_tag=19.9.0-SNAPSHOT_6061 -DappContextPath=/application-context.xml -Ddocker_config.reponame=libs-candidate-release -Ddocker_config.common_images_tag_nonref=19.9.0-SNAPSHOT_6061 -Dincludes=PhucTest -Ddocker_config.docker_setup=AC_SETUP_EXT_EECLOUD.yml -Dplug_type.familyPlug=ls-dpu -Dls-dpu.interface_version=19a.06 -Dls-dpu.device_build=373 
+-Ddocker_config.3rdParty_artifactory_url=10.131.69.114
+
+//Check keywork getConfigurationValue
+-codemaster/utc/automation/src/test/resources/configuration/globalConfiguration_K8s 
+
+//Issue with lince
+java.lang.NoSuchMethodError: org.apache.sshd.common.io.IoOutputStream.writePacket(Lorg/apache/sshd/common/util/buffer/Buffer;)
+Prerequisites-->preReqs.txt-->pc Controller Strated With LS-DPU Plug --> Comment test case
+                           -->pc Plug Test Common Setup --> 5 6
+
+http://10.131.69.94:8080/job/Altiplano-featureBranches/job/master-FNMS-45520-Adapt_existing_ATs_for_Copper_Intent_harmonization/
+http://10.131.69.114/artifactory/libs_cr_local/com/nokia/fnms/nac/blueprints/harmonized-intents/ 
+
+-->Prerequisites --> Constants.txt --> Initalize Variables --> 93
+--> update (acceptance->test->testManagement->resource->testdata->data->EPG->AC->request->EXT->19A...->)
+
+${Device_Config_DPU_Intent}
+Device_Config_DPU_Intent - Device_DPU_Intent
+
+${Device-Configuration_Intent} -        ${Device_DPU_Intent}
+
+intentType=${Device_Config_DPU_Intent} - intentType=${Device_DPU_Intent} 
+
+requestTemplate=DEVICEConfigurationIntentCallHome   requestTemplate=DeviceDPUIntentCallHome
+core_device_dpu_attributes
+requestTemplate=deleteDeviceConfigurationIntent     requestTemplate=deleteDeviceDPUIntent
+requestTemplate=LS-DPUDPUInfraServiceInstance       requestTemplate=DeviceConfigDPUInstance
+                                                    requestTemplate=DEVICEDpuIntentDirect    
+                                                    requestTemplate=DEVICEDpuIntentCallHomeWithNoDuid  
+                                                    requestTemplate=DEVICEDpuIntentDirect
+                                                    requestTemplate=DEVICEDpuIntentDirectNoUsernamePass
+                         devicetemplate=${ls-dpu_Device_Type}-${ls-dpu_device_interface_version}_default    
+                         
+sendNetconfNbiRequest requestTemplate=DeviceDPUIntentCallHome hardwaretype=${ls-dpu_Device_Type} interfaceversion=${ls-dpu_device_interface_version} operation=create target=@{ls-dpu_Device_Id}[3] requiredNetwState=active duID=@{ls-dpu_Duid}[3] ValidateNodeExist=/rpc-reply/ok
+
+
+name: deleteDeviceDPUIntent
+content: <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+          <edit-config>
+           <target>
+            <running/>
+           </target>
+           <test-option>set</test-option>
+           <error-option>rollback-on-error</error-option>
+           <config>
+            <ibn xmlns="http://www.nokia.com/management-solutions/ibn">
+             <intent xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="delete">
+              <target>%target%</target>
+              <intent-type>%intentType%</intent-type>
+             </intent>
+            </ibn>
+           </config>
+         </edit-config>
+         </rpc>
+---
+name: DEVICEDpuIntentCallHomeWithNoDuid
+content: <rpc xmlns='urn:ietf:params:xml:ns:netconf:base:1.0'>
+          <edit-config>
+           <target>
+            <running>
+             </running>
+              </target>
+               <test-option>set</test-option>
+               <error-option>rollback-on-error</error-option>
+               <config>
+               <ibn xmlns='http://www.nokia.com/management-solutions/ibn'>
+               <intent xmlns:xc='urn:ietf:params:xml:ns:netconf:base:1.0' xc:operation="%operation%">
+               <target>%target%</target>
+               <intent-type>%deviceDpuIntent%</intent-type>
+               <configuration>
+               <%deviceDpuIntent% xmlns='http://www.nokia.com/management-solutions/%deviceDpuIntent%'>
+               <label>
+                   <category>%LabelCategory%</category>
+                   <value>%LabelValue%</value>
+               </label>
+               <push-nav-configuration-to-device>%pushNavConfigToDevice%</push-nav-configuration-to-device>
+               <device-manager>%avName%</device-manager>
+               <hardware-type>%hardwaretype%</hardware-type>
+               <device-version>%interfaceversion%</device-version>
+                </%deviceDpuIntent%>
+                </configuration>
+               <intent-type-version>1</intent-type-version>
+             <required-network-state>%requiredNetwState%</required-network-state>
+            </intent>
+           </ibn>
+          </config>
+         </edit-config>
+        </rpc>
+---
+
+name: DEVICEDpuIntentDirect
+content: <rpc xmlns='urn:ietf:params:xml:ns:netconf:base:1.0'>
+          <edit-config>
+           <target>
+            <running>
+             </running>
+              </target>
+               <test-option>set</test-option>
+               <error-option>rollback-on-error</error-option>
+               <config>
+               <ibn xmlns='http://www.nokia.com/management-solutions/ibn'>
+               <intent xmlns:xc='urn:ietf:params:xml:ns:netconf:base:1.0' xc:operation="%operation%">
+               <target>%target%</target>
+               <intent-type>%deviceDpuIntent%</intent-type>
+               <configuration>
+               <%deviceDpuIntent% xmlns='http://www.nokia.com/management-solutions/%deviceDpuIntent%'>
+               <label>
+                   <category>%LabelCategory%</category>
+                   <value>%LabelValue%</value>
+               </label>
+               <pass-not-managed></pass-not-managed>
+               <push-nav-configuration-to-device>%pushNavConfigToDevice%</push-nav-configuration-to-device>
+               <device-manager>%avName%</device-manager>
+               <hardware-type>%hardwaretype%</hardware-type>
+               <device-version>%interfaceversion%</device-version>
+               <device-template>%devicetemplate%</device-template>
+               <ip-address>%ipaddress%</ip-address>
+               <ip-port>%port%</ip-port>
+               <transport-protocol>%protocol%</transport-protocol>
+               <username>%deviceusername%</username>
+               <password>%devicepassword%</password>
+               </%deviceDpuIntent%>
+                </configuration>
+               <intent-type-version>1</intent-type-version>
+             <required-network-state>%requiredNetwState%</required-network-state>
+            </intent>
+           </ibn>
+          </config>
+         </edit-config>
+        </rpc>
+---
+
+name: DEVICEDpuIntentDirectNoUsernamePass
+content: <rpc xmlns='urn:ietf:params:xml:ns:netconf:base:1.0'>
+          <edit-config>
+           <target>
+            <running>
+             </running>
+              </target>
+               <test-option>set</test-option>
+               <error-option>rollback-on-error</error-option>
+               <config>
+               <ibn xmlns='http://www.nokia.com/management-solutions/ibn'>
+               <intent xmlns:xc='urn:ietf:params:xml:ns:netconf:base:1.0' xc:operation="%operation%">
+               <target>%target%</target>
+               <intent-type>%deviceDpuIntent%</intent-type>
+               <configuration>
+               <%deviceDpuIntent% xmlns='http://www.nokia.com/management-solutions/%deviceDpuIntent%'>
+               <label>
+                   <category>%LabelCategory%</category>
+                   <value>%LabelValue%</value>
+               </label>
+               <pass-not-managed></pass-not-managed>
+               <push-nav-configuration-to-device>%pushNavConfigToDevice%</push-nav-configuration-to-device>
+               <device-manager>%avName%</device-manager>
+               <hardware-type>%hardwaretype%</hardware-type>
+               <device-version>%interfaceversion%</device-version>
+               <device-template>%devicetemplate%</device-template>
+               <ip-address>%ipaddress%</ip-address>
+               <ip-port>%port%</ip-port>
+               <transport-protocol>%protocol%</transport-protocol>
+               </%deviceDpuIntent%>
+                </configuration>
+               <intent-type-version>1</intent-type-version>
+             <required-network-state>%requiredNetwState%</required-network-state>
+            </intent>
+           </ibn>
+          </config>
+         </edit-config>
+        </rpc>
+---
+
+name: DeviceConfigDPUInstance
+content: <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+         <edit-config>
+         <target>
+            <running/>
+         </target>
+         <test-option>set</test-option>
+         <error-option>rollback-on-error</error-option>
+         <config>
+            <ibn xmlns="http://www.nokia.com/management-solutions/ibn">
+            <intent xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="%operation%">
+                <target>%target%</target>
+                <intent-type>%deviceConfigDPUIntent%</intent-type>
+                <intent-type-version>%intentTypeVersion%</intent-type-version>
+                 <configuration>
+                  <%deviceConfigDPUIntent% xmlns='http://www.nokia.com/management-solutions/%deviceConfigDPUIntent%'>
+                      <config-profile>%configProfile%</config-profile>
+                  </%deviceConfigDPUIntent%>
+                </configuration>
+                <sync-directly>%syncDirectly%</sync-directly>
+                <required-network-state>%requiredNetwState%</required-network-state>
+            </intent>
+            </ibn>
+         </config>
+         </edit-config>
+         </rpc>         
+---
+
+/////////////////////
+Verify creation of device dpu intent is successful with Device connection as Direct, Initial sync up as Yes and Synchronize true
+31 -- requestTemplate=DEVICEConfigurationIntentDirect	operation=create	target=@{ls-dpu_Device_Id}[3]	hardwaretype=${ls-dpu_Device_Type}	interfaceversion=${ls-dpu_device_interface_version}	devicetemplate=${ls-dpu_Device_Type}-${ls-dpu_device_interface_version}_default	ipaddress=${navip}	port=@{Sddpu_Netconf_Port}[2]	protocol=ssh	deviceusername=DPU	devicepassword=DPU	ValidateNodeExist=/rpc-reply/ok
+
+36 -- ValidateNodeExist=/rpc-reply/data/ibn/intent[target='@{ls-dpu_Device_Id}[3]' and intent-type='${Device_DPU_Intent}' and aligned='true']/configuration/${Device_DPU_Intent}[username="admin" and password="admin"] 
+
+
+
+
+
+
+
